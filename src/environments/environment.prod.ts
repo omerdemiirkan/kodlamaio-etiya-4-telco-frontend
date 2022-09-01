@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'http://localhost:3000',
+  apiUrl: 'https://kodlamaio-etiya-telco-json-ser.herokuapp.com',
   production: true,
 };
