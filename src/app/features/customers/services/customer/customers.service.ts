@@ -4,7 +4,7 @@ import {
   setDemographicInfo,
 } from '../../../../shared/store/customers/customerToAdd/customerToAdd.actions';
 import { Customer } from './../../models/customer';
-import { map, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from './../../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -13,7 +13,6 @@ import { Store } from '@ngrx/store';
 import { CustomerDemographicInfo } from '../../models/customerDemographicInfo';
 import { Address } from '../../models/address';
 import { ContactMedium } from '../../models/contactMedium';
-import { CustomerBillingAccountComponent } from '../../pages/customer-billing-account/customer-billing-account/customer-billing-account.component';
 import { BillingAccount } from '../../models/billingAccount';
 import { SharedStoreState } from 'src/app/shared/store/shared.reducers';
 
@@ -41,10 +40,12 @@ export class CustomersService {
     this.httpClient.get<Customer[]>(this.apiControllerUrl).subscribe({
       next: (response) => {
         let filteredCustomers = response;
-        if (searchCustomer.id) {
-          filteredCustomers = filteredCustomers.filter(
-            (item) => item.id == searchCustomer.id
-          );
+        if (searchCustomer.nationalityId) {
+          filteredCustomers = filteredCustomers.filter((item) =>
+            item
+              .nationalityId!.toString()
+              .includes(searchCustomer.nationalityId.toString())
+          );;
         }
         if (searchCustomer.customerId) {
           filteredCustomers = filteredCustomers.filter(
@@ -62,7 +63,8 @@ export class CustomersService {
         if (searchCustomer.gsmNumber) {
           filteredCustomers = filteredCustomers.filter(
             (item) =>
-              item.contactMedium!.mobilePhone == searchCustomer.gsmNumber
+               item.contactMedium!.mobilePhone.substr(1,14).split(' ').join('').includes(searchCustomer.gsmNumber)
+              
           );
         }
 
@@ -73,11 +75,11 @@ export class CustomersService {
               .includes(searchCustomer.firstName.toLowerCase())
           );
         }
-        if (searchCustomer.lastname) {
+        if (searchCustomer.lastName) {
           filteredCustomers = filteredCustomers.filter((item) =>
             item
               .lastName!.toLowerCase()
-              .includes(searchCustomer.lastname.toLowerCase())
+              .includes(searchCustomer.lastName.toLowerCase())
           );
         }
         if (searchCustomer.orderNumber) {
