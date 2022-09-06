@@ -8,8 +8,9 @@ describe('WarningMessageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [WarningMessageComponent],
-    }).compileComponents();
+      declarations: [ WarningMessageComponent ]
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(WarningMessageComponent);
     component = fixture.componentInstance;

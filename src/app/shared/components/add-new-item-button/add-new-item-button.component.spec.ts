@@ -8,8 +8,9 @@ describe('AddNewItemButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddNewItemButtonComponent],
-    }).compileComponents();
+      declarations: [ AddNewItemButtonComponent ]
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(AddNewItemButtonComponent);
     component = fixture.componentInstance;

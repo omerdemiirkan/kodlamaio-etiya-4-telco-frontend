@@ -1,11 +1,3 @@
-::ng-deep body {
-  background-color: #061f3e !important;
-}
-
-.mc1 {
-  color: white;
-}
-
-.mc {
-  color: #f58220;
+::ng-deep body{
+    background-color: #061F3E!important;
 }

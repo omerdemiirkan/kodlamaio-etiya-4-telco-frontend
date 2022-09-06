@@ -8,8 +8,9 @@ describe('CustomToastComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CustomToastComponent],
-    }).compileComponents();
+      declarations: [ CustomToastComponent ]
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(CustomToastComponent);
     component = fixture.componentInstance;

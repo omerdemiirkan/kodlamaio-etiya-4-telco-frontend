@@ -17,23 +17,16 @@ import { ShowcaseComponent } from './pages/showcase/showcase.component';
 import { TableAccordionComponent } from './components/table-accordion/table-accordion.component';
 import { BarMenuComponent } from './components/bar-menu/bar-menu.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
+import {ButtonModule} from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
 import { CustomToastComponent } from './components/custom-toast/custom-toast.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { TabMenuComponent } from './components/tab-menu/tab-menu.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TitleLineComponent } from './components/title-line/title-line.component';
-import { ButtonDirective } from './directives/button.directive';
-import { InputDirective } from './directives/input.directive';
-import { CheckBoxDirective } from './directives/check-box.directive';
-import { RouterModule } from '@angular/router';
-import { TableScrollComponent } from './components/table-scroll/table-scroll.component';
-import { TableAccordionHeaderComponent } from './components/table-accordion-header/table-accordion-header.component';
-import { StoreModule } from '@ngrx/store';
-import { sharedReducers } from './store/shared.reducers';
+import { OfferSelectionComponent } from './components/offer-selection/offer-selection.component';
+
+
 
 @NgModule({
   declarations: [
@@ -57,23 +50,15 @@ import { sharedReducers } from './store/shared.reducers';
     CustomToastComponent,
     BasketComponent,
     TabMenuComponent,
-    TitleLineComponent,
-    ButtonDirective,
-    InputDirective,
-    CheckBoxDirective,
-    TableScrollComponent,
-    TableAccordionHeaderComponent,
+    OfferSelectionComponent
   ],
   imports: [
     CommonModule,
     ToastModule,
     ButtonModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    StoreModule.forRoot(sharedReducers),
+    BrowserAnimationsModule
   ],
-  exports: [
+  exports:[
     OverlayTitleComponent,
     SideFilterComponent,
     SettingsMenuComponent,
@@ -93,12 +78,8 @@ import { sharedReducers } from './store/shared.reducers';
     CustomToastComponent,
     BasketComponent,
     TabMenuComponent,
-    TitleLineComponent,
-    ButtonDirective,
-    InputDirective,
-    TableScrollComponent,
-    TableAccordionHeaderComponent,
+    OfferSelectionComponent
   ],
-  providers: [MessageService],
+  providers:[MessageService]
 })
-export class SharedModule {}
+export class SharedModule { }
