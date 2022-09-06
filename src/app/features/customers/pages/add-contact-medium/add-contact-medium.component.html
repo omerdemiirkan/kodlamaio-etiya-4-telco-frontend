@@ -28,8 +28,20 @@
                     etiyaInput="dark"
                     class="e-contact-input"
                     formControlName="email"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && contactForm.controls['email'].errors
+                    }"
                   />
                 </div>
+                <small
+                  *ngIf="isShow && contactForm.controls['email'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 420px; margin-top: -5px"
+                >
+                  This Field can not be left blank!
+                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 mb-5">
@@ -60,8 +72,20 @@
                     etiyaInput="dark"
                     class="e-contact-input"
                     formControlName="mobilePhone"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && contactForm.controls['mobilePhone'].errors
+                    }"
                   />
                 </div>
+                <small
+                  *ngIf="isShow && contactForm.controls['mobilePhone'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 420px; margin-top: -5px"
+                >
+                  This Field can not be left blank!
+                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 mb-5">
@@ -82,11 +106,7 @@
           </div>
           <div class="row mt-2 e-contact-center">
             <div class="col-2">
-              <button
-                etiyaButton="clear"
-                style="width: 164px"
-                (click)="saveCustomer()"
-              >
+              <button etiyaButton="clear" style="width: 164px" (click)="Save()">
                 Create
               </button>
             </div>

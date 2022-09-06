@@ -47,7 +47,7 @@ export class CreateCustomerComponent implements OnInit {
       fatherName: [this.customer.fatherName],
       motherName: [this.customer.motherName],
       nationalityId: [this.customer.nationalityId,
-        [Validators.required, Validators.minLength(11)]],
+        [Validators.pattern('^[0-9]{11}$'), Validators.required]],
     });
   }
 

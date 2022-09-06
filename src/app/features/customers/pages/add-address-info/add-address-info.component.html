@@ -31,6 +31,10 @@
                         name="gender"
                         id="gender"
                         formControlName="city"
+                        [ngClass]="{
+                          'invalid-input':
+                            isShow && addressForm.controls['city'].errors
+                        }"
                       >
                         <option selected disabled hidden value="">
                           Choose a city
@@ -55,6 +59,10 @@
                       type="text"
                       etiyaInput="dark"
                       formControlName="flatNumber"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && addressForm.controls['flatNumber'].errors
+                      }"
                     />
                   </div>
                 </div>
@@ -71,6 +79,10 @@
                       type="text"
                       etiyaInput="dark"
                       formControlName="street"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && addressForm.controls['street'].errors
+                      }"
                     />
                   </div>
                 </div>
@@ -87,8 +99,26 @@
                       class="e-address-desc"
                       placeholder=""
                       formControlName="description"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && addressForm.controls['description'].errors
+                      }"
                     ></textarea>
                   </div>
+                  <small
+                    *ngIf="
+                      isShow &&
+                      (addressForm.controls['description'].errors ||
+                        (isShow && addressForm.controls['street'].errors) ||
+                        (isShow && addressForm.controls['flatNumber'].errors) ||
+                        (isShow && addressForm.controls['city'].errors))
+                    "
+                    id="lastName-help"
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red; margin-left: 400px; margin-top: 5px"
+                  >
+                    Requirements field can not be left blank
+                  </small>
                 </div>
               </div>
             </div>

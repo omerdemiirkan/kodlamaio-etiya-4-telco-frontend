@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -17,7 +16,8 @@ import { CustomersService } from '../../services/customer/customers.service';
 })
 export class AddAddressInfoComponent implements OnInit {
   addressForm!: FormGroup;
-  cityList!: City[];
+  cityList!: City[];  
+  isShow:Boolean=false
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,8 +41,14 @@ export class AddAddressInfoComponent implements OnInit {
   }
 
   addAddress() {
+    if (this.addressForm.valid) {
+      this.isShow = false
     this.customersService.addAddressInfoToStore(this.addressForm.value);
     this.router.navigateByUrl('/dashboard/customers/list-address-info');
+    }
+    else{
+      this.isShow = true
+    }
   }
 
   getAddressList() {

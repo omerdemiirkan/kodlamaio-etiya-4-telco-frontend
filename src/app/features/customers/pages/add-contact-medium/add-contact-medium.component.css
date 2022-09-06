@@ -70,3 +70,13 @@
 ::ng-deep .main-box {
   height: auto !important;
 }
+
+.invalid-input {
+  border-color: red!important;
+  color: red !important;
+}
+
+small{
+  font-weight: 200!important;
+  font-size: 15px!important;
+}
