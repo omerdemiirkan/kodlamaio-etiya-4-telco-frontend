@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CustomersService } from 'src/app/features/customers/services/customer/customers.service';
 
 @Component({
@@ -27,7 +32,7 @@ export class SideFilterComponent implements OnInit {
       accountNumber: [''],
       gsmNumber: [''],
       firstName: [''],
-      lastName: [''],
+      lastname: [''],
       orderNumber: [''],
     });
   }
@@ -38,12 +43,9 @@ export class SideFilterComponent implements OnInit {
       ...this.searchForm.value,
       nationalityId: nationalityId,
     };
-    console.log(nationalityId)
-    this.customersService
-      .getListByFilter(newSearchForm)
-      .subscribe((data) => {
-        this.filteredData.emit(data);
-      });
+    this.customersService.getListByFilter(newSearchForm).subscribe((data) => {
+      this.filteredData.emit(data);
+    });
   }
   clear() {
     this.createSearchForm();
