@@ -69,6 +69,7 @@ export class AuthService {
 
   logOut() {
     this.localStorageService.remove('token');
+    this.localStorageService.remove('rememberMe');
     this.router.navigateByUrl('/login');
   }
 

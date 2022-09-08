@@ -15,7 +15,12 @@
       <div class="d-flex justify-content-center m-8">
         <div class="e-address-form-container">
           <div class="row">
-            <a class="e-form-close" routerLink="/list-address-info">X</a>
+            <a
+              class="e-form-close"
+              style="cursor: pointer"
+              (click)="closeIconRoute()"
+              >X</a
+            >
           </div>
           <form *ngIf="addressForm" [formGroup]="addressForm">
             <div class="row">
@@ -31,6 +36,10 @@
                         name="gender"
                         id="gender"
                         formControlName="city"
+                        [ngClass]="{
+                          'invalid-input':
+                            isShow && addressForm.controls['city'].errors
+                        }"
                       >
                         <option selected disabled hidden [value]="0">
                           Choose a city
@@ -52,9 +61,13 @@
                   </div>
                   <div class="col-12 col-lg-8 e-address-col-center">
                     <input
-                      type="number"
+                      type="text"
                       etiyaInput="dark"
                       formControlName="flatNumber"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && addressForm.controls['flatNumber'].errors
+                      }"
                     />
                   </div>
                 </div>
@@ -71,6 +84,10 @@
                       type="text"
                       etiyaInput="dark"
                       formControlName="street"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && addressForm.controls['street'].errors
+                      }"
                     />
                   </div>
                 </div>
@@ -87,8 +104,27 @@
                       class="e-address-desc"
                       placeholder=""
                       formControlName="description"
+                      maxlength="250"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && addressForm.controls['description'].errors
+                      }"
                     ></textarea>
                   </div>
+                  <small
+                    *ngIf="
+                      isShow &&
+                      (addressForm.controls['description'].errors ||
+                        (isShow && addressForm.controls['street'].errors) ||
+                        (isShow && addressForm.controls['flatNumber'].errors) ||
+                        (isShow && addressForm.controls['city'].errors))
+                    "
+                    id="lastName-help"
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red; margin-left: 400px; margin-top: 5px"
+                  >
+                    Requirements field can not be left blank
+                  </small>
                 </div>
               </div>
             </div>

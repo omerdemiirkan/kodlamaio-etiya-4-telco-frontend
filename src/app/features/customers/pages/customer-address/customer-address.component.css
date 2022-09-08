@@ -21,3 +21,14 @@
   width: 35px;
   height: 39px;
 }
+
+.e-btn-edit {
+  height: 36px;
+  width: 36px;
+}
+
+.e-btn-remove {
+  height: 36px;
+  width: 36px;
+  margin-left: -10px;
+}

@@ -37,7 +37,12 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="firstName"
-                    maxlength="100"
+                    maxlength="50"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow &&
+                        updateCustomerForm.controls['firstName'].errors
+                    }"
                   />
                 </div>
               </div>
@@ -49,7 +54,6 @@
                     type="text "
                     etiyaInput="dark"
                     formControlName="middleName"
-                    maxlength="100"
                   />
                 </div>
               </div>
@@ -62,18 +66,27 @@
                     type="text "
                     etiyaInput="dark"
                     formControlName="lastName"
-                    maxlength="100"
+                    maxlength="50"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && updateCustomerForm.controls['lastName'].errors
+                    }"
                   />
                 </div>
               </div>
               <div class="col-6">
                 <div class="form-group">
-                  <label class="col-5" for="birthDate">Birth Name:</label>
+                  <label class="col-5" for="birthDate">Birth Date:</label>
                   <input
                     class="col-7"
-                    type="text"
+                    type="date"
                     etiyaInput="dark"
                     formControlName="birthDate"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow &&
+                        updateCustomerForm.controls['birthDate'].errors
+                    }"
                   />
                 </div>
               </div>
@@ -88,6 +101,10 @@
                       id="gender"
                       class="p-2"
                       formControlName="gender"
+                      [ngClass]="{
+                        'invalid-input':
+                          isShow && updateCustomerForm.controls['gender'].errors
+                      }"
                     >
                       <option selected value="Female">Female</option>
                       <option value="Erkek">Erkek</option>
@@ -104,7 +121,6 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="fatherName"
-                    maxlength="100"
                   />
                 </div>
               </div>
@@ -116,7 +132,6 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="motherName"
-                    maxlength="100"
                   />
                 </div>
               </div>
@@ -129,6 +144,12 @@
                     etiyaInput="dark"
                     formControlName="nationalityId"
                     onKeyPress="if(this.value.length==11) return false;"
+                    (keypress)="isNumber($event)"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow &&
+                        updateCustomerForm.controls['nationalityId'].errors
+                    }"
                   />
                 </div>
               </div>
@@ -137,18 +158,49 @@
           <div class="d-flex justify-content-center">
             <div style="width: 1125px" class="row p-0 pt-4">
               <div class="col-6 d-flex justify-content-lg-start">
-                <button
-                  etiyaButton="clear"
-                  routerLink="/dashboard/customers/customer-info"
-                >
+                <button etiyaButton="clear" (click)="previousPage()">
                   CANCEL
                 </button>
               </div>
               <div class="col-6 d-flex justify-content-lg-end">
-                <button etiyaButton="clear" (click)="update()">SAVE</button>
+                <button
+                  etiyaButton="clear"
+                  (click)="UpdateCustomer()"
+                  [disabled]="
+                    updateCustomerForm.value.firstName == customer.firstName &&
+                    updateCustomerForm.value.lastName == customer.lastName &&
+                    updateCustomerForm.value.middleName ==
+                      customer.middleName &&
+                    updateCustomerForm.value.birthDate == customer.birthDate &&
+                    updateCustomerForm.value.gender == customer.gender &&
+                    updateCustomerForm.value.fatherName ==
+                      customer.fatherName &&
+                    updateCustomerForm.value.motherName ==
+                      customer.motherName &&
+                    updateCustomerForm.value.nationalityId ==
+                      customer.nationalityId
+                  "
+                >
+                  SAVE
+                </button>
               </div>
             </div>
           </div>
+          <small
+            *ngIf="
+              isShow &&
+              (updateCustomerForm.controls['firstName'].errors ||
+                (isShow && updateCustomerForm.controls['lastName'].errors) ||
+                (isShow && updateCustomerForm.controls['birthDate'].errors) ||
+                (isShow && updateCustomerForm.controls['gender'].errors) ||
+                (isShow && updateCustomerForm.controls['nationalityId'].errors))
+            "
+            id="lastName-help"
+            class="p-error block ng-invalid ng-dirty"
+            style="color: red; margin-left: 350px; margin-top: 5px"
+          >
+            Requirements field can not be left blank
+          </small>
         </form>
       </div>
     </div>

@@ -51,6 +51,6 @@ export class ListAddressInfoComponent implements OnInit {
     });
   }
   remove() {
-    this.customersService.removeAdress(this.addressToDelete);
+    this.customersService.removeAdressToStore(this.addressToDelete);
   }
 }

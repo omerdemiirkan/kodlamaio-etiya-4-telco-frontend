@@ -63,12 +63,6 @@ export class AddContactMediumComponent implements OnInit {
     this.saveContactMediumToStore();
     this.customersService.add(this.customer).subscribe({
       next: (data) => {
-        this.messageService.add({
-          detail: 'Sucsessfully added',
-          severity: 'success',
-          summary: 'Add',
-          key: 'etiya-custom',
-        });
         this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
       },
       error: (err) => {
@@ -76,7 +70,6 @@ export class AddContactMediumComponent implements OnInit {
           detail: 'Error created',
           severity: 'danger',
           summary: 'Error',
-          key: 'etiya-custom',
         });
       },
     });

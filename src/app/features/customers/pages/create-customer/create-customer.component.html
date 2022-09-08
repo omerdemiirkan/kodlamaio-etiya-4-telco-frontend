@@ -37,14 +37,6 @@
                     }"
                   />
                 </div>
-                <small
-                  *ngIf="isShow && profileForm.controls['firstName'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 380px; margin-top: -20px"
-                >
-                  Please fill in the required fields
-                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -87,14 +79,6 @@
                     }"
                   />
                 </div>
-                <small
-                  *ngIf="isShow && profileForm.controls['lastName'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 380px; margin-top: -20px"
-                >
-                  Please fill in the required fields
-                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -117,14 +101,6 @@
                     }"
                   />
                 </div>
-                <small
-                  *ngIf="isShow && profileForm.controls['birthDate'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 380px; margin-top: -20px"
-                >
-                  Please fill in the required fields
-                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -154,14 +130,6 @@
                     </select>
                   </div>
                 </div>
-                <small
-                  *ngIf="isShow && profileForm.controls['gender'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 380px; margin-top: 11px"
-                >
-                  Please fill in the required fields
-                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -225,16 +193,35 @@
                   />
                 </div>
                 <small
-                  *ngIf="isShow && profileForm.controls['nationalityId'].errors"
+                  *ngIf="isNationaltyId && profileForm.valid"
                   id="lastName-help"
                   class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 380px; margin-top: -20px"
+                  style="
+                    margin-left: 350px;
+                    margin-top: -15px;
+                    font-size: 15px !important;
+                  "
                 >
-                  Please fill in the required fields
+                  “A customer is already exist with this National ID
                 </small>
               </div>
             </div>
           </div>
+          <small
+            *ngIf="
+              isShow &&
+              (profileForm.controls['firstName'].errors ||
+                (isShow && profileForm.controls['lastName'].errors) ||
+                (isShow && profileForm.controls['birthDate'].errors) ||
+                (isShow && profileForm.controls['gender'].errors) ||
+                (isShow && profileForm.controls['nationalityId'].errors))
+            "
+            id="lastName-help"
+            class="p-error block ng-invalid ng-dirty"
+            style="margin-left: 350px; margin-top: 5px"
+          >
+            Requirements field can not be left blank
+          </small>
         </form>
       </div>
       <div class="d-flex justify-content-center">

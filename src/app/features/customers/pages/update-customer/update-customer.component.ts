@@ -14,6 +14,7 @@ export class UpdateCustomerComponent implements OnInit {
   updateCustomerForm!: FormGroup;
   selectedCustomerId!: number;
   customer!: Customer;
+  isShow:Boolean=false
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,8 +35,8 @@ export class UpdateCustomerComponent implements OnInit {
       lastName: [this.customer.lastName, Validators.required],
       birthDate: [this.customer.birthDate, Validators.required],
       gender: [this.customer.gender, Validators.required],
-      fatherName: [this.customer.fatherName, ],
-      motherName: [this.customer.motherName, ],
+      fatherName: [this.customer.fatherName],
+      motherName: [this.customer.motherName],
       nationalityId: [this.customer.nationalityId, Validators.required],
     });
   }
@@ -56,16 +57,17 @@ export class UpdateCustomerComponent implements OnInit {
     }
   }
 
-  update() {
-    if (this.updateCustomerForm.invalid) {
-      this.messageService.add({
-        detail: 'Please fill required areas',
-        severity: 'danger',
-        summary: 'Error',
-        key: 'etiya-custom',
-      });
-      return;
+  UpdateCustomer() {
+    if (this.updateCustomerForm.valid) {
+      this.isShow = false
+      this.update();
     }
+    else{
+      this.isShow = true
+    }
+  }
+
+  update() {
     const customer: Customer = Object.assign(
       { id: this.customer.id },
       this.updateCustomerForm.value
@@ -73,15 +75,30 @@ export class UpdateCustomerComponent implements OnInit {
     this.customerService.update(customer, this.customer).subscribe(() => {
       setTimeout(() => {
         this.router.navigateByUrl(
-          `/dashboard/customers/customer-address/${customer.id}`
+          `/dashboard/customers/customer-info/${customer.id}`
         );
-        this.messageService.add({
-          detail: 'Sucsessfully updated',
-          severity: 'success',
-          summary: 'Update',
-          key: 'etiya-custom',
-        });
+        // this.messageService.add({
+        //   detail: 'Sucsessfully updated',
+        //   severity: 'success',
+        //   summary: 'Update',
+        //   key: 'etiya-custom',
+        // });
       }, 1000);
     });
+  }
+
+  isNumber(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
+
+    event.preventDefault();
+    return false;
+  }
+
+  previousPage(){
+    this.router.navigateByUrl(`/dashboard/customers/customer-info/${this.selectedCustomerId}`)
+
   }
 }
