@@ -25,10 +25,12 @@
 .e-btn-edit {
   height: 36px;
   width: 36px;
+  border: none;
 }
 
 .e-btn-remove {
   height: 36px;
   width: 36px;
   margin-left: -10px;
+  border: none;
 }

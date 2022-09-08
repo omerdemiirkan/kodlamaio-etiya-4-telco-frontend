@@ -35,7 +35,9 @@ export class CustomerInfoComponent implements OnInit {
         });
         if (filteredData) {
           this.messageService.add({
-            key: 'etiya-warn',
+            key: 'okey',
+            sticky: true,
+            severity: 'warn',
             detail:
               'Since the customer has active products, the customer cannot be deleted.',
           });
@@ -73,7 +75,7 @@ export class CustomerInfoComponent implements OnInit {
       key: 'c',
       sticky: true,
       severity: 'warn',
-      detail: 'Your changes could not be saved. Are you sure?',
+      detail: 'Are you sure to delete this customer?',
     });
   }
 

@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -80,19 +78,13 @@ export class UpdateCustomerComponent implements OnInit {
         this.router.navigateByUrl(
           `/dashboard/customers/customer-info/${customer.id}`
         );
-        
       });
   }
 
   checkInvalid() {
     if (this.updateCustomerForm.invalid) {
       this.isShow = true;
-      this.messageService.add({
-        detail: 'Error created',
-        severity: 'danger',
-        summary: 'Error',
-        key: 'etiya-custom',
-      });
+
       return;
     }
     if (
@@ -130,9 +122,9 @@ export class UpdateCustomerComponent implements OnInit {
     return false;
   }
 
-  previousPage(){
-    this.router.navigateByUrl(`/dashboard/customers/customer-info/${this.selectedCustomerId}`)
-
+  previousPage() {
+    this.router.navigateByUrl(
+      `/dashboard/customers/customer-info/${this.selectedCustomerId}`
+    );
   }
-  
 }

@@ -103,6 +103,7 @@ import {DialogModule} from 'primeng/dialog';
     InputDirective,
     TableScrollComponent,
     TableAccordionHeaderComponent,
+    ValidationDialogPopupComponent,
   ],
   providers: [MessageService],
 })
