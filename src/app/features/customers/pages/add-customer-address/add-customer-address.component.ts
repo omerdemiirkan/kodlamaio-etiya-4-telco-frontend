@@ -86,8 +86,15 @@ export class AddCustomerAddressComponent implements OnInit {
   }
 
   save() {
-    if (this.addressToUpdate === undefined) this.add();
-    else this.update();
+    if (this.addressToUpdate === undefined){
+      this.add();
+      this.router.navigateByUrl(`/dashboard/customers/customer-address/${this.selectedCustomerId}`)
+      }
+   
+    else {
+      this.update();
+      this.router.navigateByUrl(`/dashboard/customers/customer-address/${this.selectedCustomerId}`)
+    }
   }
 
   add() {

@@ -14,7 +14,6 @@ export class AddContactMediumComponent implements OnInit {
   contactForm!: FormGroup;
   customer!: Customer;
   isShow:Boolean=false
-  displayBasic!: boolean;
 
   constructor(
     private customersService: CustomersService,
@@ -57,7 +56,6 @@ export class AddContactMediumComponent implements OnInit {
     }
     else{
       this.isShow = true
-      this.displayBasic = true;
     }
   }
 

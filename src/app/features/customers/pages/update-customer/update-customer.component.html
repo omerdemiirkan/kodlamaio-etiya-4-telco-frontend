@@ -37,6 +37,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="firstName"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -48,6 +49,7 @@
                     type="text "
                     etiyaInput="dark"
                     formControlName="middleName"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -60,6 +62,7 @@
                     type="text "
                     etiyaInput="dark"
                     formControlName="lastName"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -101,6 +104,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="fatherName"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -112,6 +116,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="motherName"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -120,9 +125,10 @@
                   <label class="col-5" for="nationalId">Nationality ID:</label>
                   <input
                     class="col-7"
-                    type="text"
+                    type="number"
                     etiyaInput="dark"
                     formControlName="nationalityId"
+                    onKeyPress="if(this.value.length==11) return false;"
                   />
                 </div>
               </div>

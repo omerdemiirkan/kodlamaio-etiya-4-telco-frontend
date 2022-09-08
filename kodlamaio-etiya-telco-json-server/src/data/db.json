@@ -24,14 +24,14 @@
           "description": "6128 Jay Alley"
         },
         {
-          "id": 2,
           "city": {
             "id": 1,
             "name": "New York"
           },
           "street": "Oak Valley",
           "flatNumber": 18,
-          "description": "68 Hudson Street"
+          "description": "68 Hudson Street",
+          "id": 2
         },
         {
           "street": "",
@@ -48,7 +48,7 @@
       ],
       "contactMedium": {
         "email": "cgronw0@imgur.com",
-        "homePhone": "391 151 6866",
+        "homePhone": "391 151 6868",
         "mobilePhone": "+420 139 504 9728",
         "fax": "424-325-3276"
       },
@@ -2636,6 +2636,124 @@
       "billingAccounts": [],
       "type": "[CustomerToAdd] Set Demographic Info",
       "id": 22
+    },
+    {
+      "customerId": 9999,
+      "firstName": "Ömer Farukssaa",
+      "middleName": "",
+      "lastName": "Demirkan",
+      "birthDate": "2022-09-28",
+      "gender": "Female",
+      "nationalityId": 11111111111,
+      "role": "individual",
+      "motherName": "",
+      "fatherName": "",
+      "addresses": [
+        {
+          "city": {
+            "id": 4,
+            "name": "Houston"
+          },
+          "street": "333",
+          "flatNumber": 33,
+          "description": "111",
+          "id": 1
+        }
+      ],
+      "contactMedium": {
+        "email": "omerdemirkan12@gmail.com",
+        "homePhone": 5300303906,
+        "mobilePhone": 53003039062,
+        "fax": 222,
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "type": "[CustomerToAdd] Set Demographic Info",
+      "id": 23
+    },
+    {
+      "customerId": 9999,
+      "firstName": "Ömerasdadadadadada",
+      "middleName": null,
+      "lastName": "Demirkan",
+      "birthDate": "2022-09-21",
+      "gender": "Female",
+      "nationalityId": 11111111111,
+      "role": "individual",
+      "motherName": null,
+      "fatherName": null,
+      "addresses": [
+        {
+          "city": {
+            "id": 9,
+            "name": "Seattle"
+          },
+          "street": "111",
+          "flatNumber": "11",
+          "description": "111",
+          "id": 1,
+          "type": "[CustomerToAdd] Add Address Info"
+        },
+        {
+          "street": "",
+          "flatNumber": "",
+          "description": "",
+          "id": 2
+        }
+      ],
+      "contactMedium": {
+        "email": "omerdemirkan12@gmail.com",
+        "homePhone": 5300303906,
+        "mobilePhone": 53003039063,
+        "fax": "12311313131"
+      },
+      "billingAccounts": [
+        {
+          "accountName": "asaf",
+          "accountDescription": "afa",
+          "addresses": [
+            {
+              "id": 923,
+              "city": {
+                "id": 4,
+                "name": "Houston"
+              },
+              "street": "ada",
+              "flatNumber": "adsada",
+              "description": "dada"
+            }
+          ],
+          "id": 1
+        }
+      ],
+      "type": "[CustomerToAdd] Set Demographic Info",
+      "id": 24
+    },
+    {
+      "customerId": 9999,
+      "role": "individual",
+      "addresses": [
+        {
+          "city": {
+            "id": 9,
+            "name": "Seattle"
+          },
+          "street": "2",
+          "flatNumber": "22",
+          "description": "22",
+          "id": 1,
+          "type": "[CustomerToAdd] Add Address Info"
+        }
+      ],
+      "contactMedium": {
+        "email": "omerdemirkan12@gmail.com",
+        "homePhone": 5300303906,
+        "mobilePhone": 21312222222,
+        "fax": 5300303906,
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "id": 25
     }
   ],
   "offers": [

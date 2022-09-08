@@ -136,21 +136,3 @@
     </div>
   </app-main-layout>
 </div>
-<p-dialog [(visible)]="displayBasic" [style]="{ width: '50vw' }">
-  <p>
-    <strong>Email</strong>: Metinsel değer girilmelidir.(Zorunlu alan)<br />
-    <strong>Home Phone</strong>: 11 karakterden oluşmalıdır,rakam
-    girilmelidir<br />
-    <strong>Mobil Phone</strong>: 11 karakterden oluşmalıdır ,rakam
-    girilmelidir(Zorunlu alan) <br />
-    <strong>Fax</strong>: 11 karakterden oluşmalıdır,rakam girilmelidir.
-  </p>
-  <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-check"
-      (click)="displayBasic = false"
-      label="Ok"
-      styleClass="p-button-text"
-    ></p-button>
-  </ng-template>
-</p-dialog>

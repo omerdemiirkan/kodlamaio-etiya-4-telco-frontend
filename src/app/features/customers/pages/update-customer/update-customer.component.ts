@@ -30,12 +30,12 @@ export class UpdateCustomerComponent implements OnInit {
   createFormUpdateCustomer() {
     this.updateCustomerForm = this.formBuilder.group({
       firstName: [this.customer.firstName, Validators.required],
-      middleName: [this.customer.middleName, Validators.required],
+      middleName: [this.customer.middleName],
       lastName: [this.customer.lastName, Validators.required],
       birthDate: [this.customer.birthDate, Validators.required],
       gender: [this.customer.gender, Validators.required],
-      fatherName: [this.customer.fatherName, Validators.required],
-      motherName: [this.customer.motherName, Validators.required],
+      fatherName: [this.customer.fatherName, ],
+      motherName: [this.customer.motherName, ],
       nationalityId: [this.customer.nationalityId, Validators.required],
     });
   }
