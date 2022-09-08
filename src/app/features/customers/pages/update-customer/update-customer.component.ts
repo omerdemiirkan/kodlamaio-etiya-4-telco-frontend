@@ -37,7 +37,7 @@ export class UpdateCustomerComponent implements OnInit {
       gender: [this.customer.gender, Validators.required],
       fatherName: [this.customer.fatherName],
       motherName: [this.customer.motherName],
-      nationalityId: [this.customer.nationalityId, Validators.required],
+      nationalityId: [this.customer.nationalityId, [Validators.pattern('^[0-9]{11}$'), Validators.required]],
     });
   }
 

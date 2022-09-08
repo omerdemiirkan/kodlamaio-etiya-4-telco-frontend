@@ -58,6 +58,7 @@
                     <input
                       type="text"
                       etiyaInput="dark"
+                      maxlength="100"
                       formControlName="flatNumber"
                       [ngClass]="{
                         'invalid-input':
@@ -78,6 +79,7 @@
                     <input
                       type="text"
                       etiyaInput="dark"
+                      maxlength="100"
                       formControlName="street"
                       [ngClass]="{
                         'invalid-input':
@@ -99,7 +101,7 @@
                       class="e-address-desc"
                       placeholder=""
                       formControlName="description"
-                      maxlength="250"
+                      maxlength="200"
                       [ngClass]="{
                         'invalid-input':
                           isShow && addressForm.controls['description'].errors
@@ -123,7 +125,15 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-2 d-flex justify-content-center">
+            <div style="justify-content: space-between;" class="row mt-2 d-flex ">
+              <div class="col-2">
+                <button
+                  etiyaButton="clear"
+                  routerLink="/dashboard/customers/list-address-info"
+                >
+                  CANCEL
+                </button>
+              </div>
               <div class="col-2">
                 <button etiyaButton="clear" (click)="save()">SAVE</button>
               </div>

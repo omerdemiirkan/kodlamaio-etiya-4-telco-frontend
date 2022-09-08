@@ -63,7 +63,7 @@ export class AddContactMediumComponent implements OnInit {
     this.saveContactMediumToStore();
     this.customersService.add(this.customer).subscribe({
       next: (data) => {
-        this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
+        this.router.navigateByUrl(`dashboard/customers/customer-info/${data.id}`);
       },
       error: (err) => {
         this.messageService.add({

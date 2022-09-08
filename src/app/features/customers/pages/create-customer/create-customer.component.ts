@@ -1,7 +1,6 @@
-import { map, Observable } from 'rxjs';
+import {  Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import {
-  FormControl,
   FormGroup,
   Validators,
   FormBuilder,
@@ -19,14 +18,14 @@ export class CreateCustomerComponent implements OnInit {
   profileForm!: FormGroup;
   createCustomerModel$!: Observable<Customer>;
   customer!: Customer;
-  isShow:Boolean=false
-  isNationaltyId:Boolean=false
+  isShow: boolean = false;
+  maxDate = '2004-08-08';
 
   constructor(
     private formBuilder: FormBuilder,
     private customerService: CustomersService,
     private router: Router,
-    private messageService:MessageService
+    private messageService: MessageService
   ) {
     this.createCustomerModel$ = this.customerService.customerToAddModel$;
   }
@@ -35,21 +34,22 @@ export class CreateCustomerComponent implements OnInit {
     this.createCustomerModel$.subscribe((state) => {
       this.customer = state;
       this.createFormAddCustomer();
-
     });
   }
 
   createFormAddCustomer() {
     this.profileForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      middleName: [''],
-      lastName: ['', Validators.required],
-      birthDate: ['', Validators.required],
-      gender: ['', Validators.required],
-      fatherName: [''],
-      motherName: [''],
-      nationalityId: ['',
-        [Validators.pattern('^[0-9]{11}$'), Validators.required]],
+      firstName: [this.customer.firstName, Validators.required],
+      middleName: [this.customer.middleName],
+      lastName: [this.customer.lastName, Validators.required],
+      birthDate: [this.customer.birthDate, Validators.required],
+      gender: [this.customer.gender ?? '', Validators.required],
+      fatherName: [this.customer.fatherName],
+      motherName: [this.customer.motherName],
+      nationalityId: [
+        this.customer.nationalityId,
+        [Validators.pattern('^[0-9]{11}$'), Validators.required],
+      ],
     });
   }
 
@@ -59,34 +59,51 @@ export class CreateCustomerComponent implements OnInit {
         return item.nationalityId == id;
       });
       if (matchCustomer) {
-        this.isNationaltyId=true
+        this.messageService.add({
+          detail: 'This user already exist',
+          severity: 'info',
+          summary: 'Warning',
+          key: 'etiya-custom',
+          sticky: true,
+        });
       } else {
-        this.isNationaltyId=false
         this.customerService.setDemographicInfoToStore(this.profileForm.value);
         this.router.navigateByUrl('/dashboard/customers/list-address-info');
       }
     });
   }
 
-
   goNextPage() {
     if (this.profileForm.valid) {
-      this.isNationaltyId=false
-      this.isShow = false
+      this.isShow = false;
       this.getCustomers(this.profileForm.value.nationalityId);
-    }
-    else{
-      this.isNationaltyId=false
-      this.isShow = true
+    } else {
+      this.isShow = true;
     }
   }
-
-  isNumber(event: any): boolean {
+  isValid(event: any): boolean {
     console.log(event);
     const pattern = /[0-9]/;
     const char = String.fromCharCode(event.which ? event.which : event.keyCode);
     if (pattern.test(char)) return true;
 
+    event.preventDefault();
+    return false;
+  }
+  isBirthdayValid(event: any): boolean {
+    const now = new Date();
+    const inputDate = new Date(event.target.value);
+    if (
+      inputDate.getTime() -
+        new Date(
+          now.getFullYear() - 18,
+          now.getMonth(),
+          now.getDay()
+        ).getTime() >=
+      0
+    )
+      return true;
+    console.log('18 den büyük');
     event.preventDefault();
     return false;
   }

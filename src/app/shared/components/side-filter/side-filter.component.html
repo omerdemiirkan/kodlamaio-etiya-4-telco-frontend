@@ -25,6 +25,7 @@
         etiyaInput="dark"
         formControlName="customerId"
         (keypress)="isNumber($event)"
+        onKeyPress="if(this.value.length==7) return false;"
         #customerId
       />
 
@@ -33,7 +34,7 @@
         type="text"
         etiyaInput="dark"
         formControlName="accountNumber"
-        maxlength="10"
+        maxlength="11"
         #accountNumber
       />
 
@@ -42,7 +43,7 @@
         type="text"
         etiyaInput="dark"
         formControlName="gsmNumber"
-        maxlength="11"
+        maxlength="10"
         (keypress)="isNumber($event)"
         #gsmNumber
       />
@@ -53,7 +54,7 @@
         etiyaInput="dark"
         formControlName="firstName"
         minlength="2"
-        maxlength="50"
+        maxlength="100"
         #firstName
       />
 
@@ -63,22 +64,33 @@
         etiyaInput="dark"
         formControlName="lastName"
         minlength="2"
-        maxlength="50"
+        maxlength="100"
         #lastName
       />
 
       <label class="e-label">ORDER NUMBER</label>
       <input
-        type="text"
+        type="number"
         etiyaInput="dark"
         formControlName="orderNumber"
         (keypress)="isNumber($event)"
         #orderNumber
+        
+        onKeyPress="if(this.value.length==10) return false;"
       />
     </form>
   </div>
   <div class="e-btn-container">
-    <button type="button" etiyaButton="clear" (click)="clear()">CLEAR</button>
+    <button type="button" etiyaButton="clear" 
+    [disabled]="
+        nationalityId.value.length === 0 &&
+        customerId.value.length === 0 &&
+        accountNumber.value.length === 0 &&
+        gsmNumber.value.length === 0 &&
+        firstName.value.length === 0 &&
+        lastName.value.length === 0 &&
+        orderNumber.value.length === 0
+      "(click)="clear()">CLEAR</button>
     <button
       type="button"
       etiyaButton="search"
