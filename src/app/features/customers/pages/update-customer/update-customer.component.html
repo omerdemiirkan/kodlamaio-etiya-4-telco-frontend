@@ -78,16 +78,18 @@
                 <div class="form-group">
                   <label class="col-5" for="birthDate">Birth Date:</label>
                   <input
-                    class="col-7"
-                    type="date"
-                    etiyaInput="dark"
-                    formControlName="birthDate"
-                    [ngClass]="{
-                      'invalid-input':
-                        isShow &&
-                        updateCustomerForm.controls['birthDate'].errors
-                    }"
-                  />
+                  class="col-7"
+                  type="date"
+                  etiyaInput="dark"
+                  formControlName="birthDate"
+                  [max]="today | date: 'yyyy-MM-dd'"
+                  (blur)="onDateChange($event)"
+                  [ngClass]="{
+                    'invalid-input':
+                      isShow &&
+                      updateCustomerForm.controls['birthDate'].errors
+                  }"
+                />
                 </div>
               </div>
               <div class="col-6">

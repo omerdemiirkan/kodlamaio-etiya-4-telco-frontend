@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +16,8 @@ export class UpdateCustomerComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
   isShow: Boolean = false;
+  today: Date = new Date();
+  
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,24 +28,27 @@ export class UpdateCustomerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCustomerById();
+    this.getCustomerById(); 
   }
 
+
   createFormUpdateCustomer() {
+    console.log(this.customer.birthDate);
+    let bDate = new Date();
+    if (this.customer.birthDate) {
+      bDate = new Date(this.customer.birthDate);
+    }
     this.updateCustomerForm = this.formBuilder.group({
-      firstName: [
-        this.customer.firstName,
-        [Validators.required, Validators.maxLength(50)],
+      firstName: [this.customer.firstName, [Validators.maxLength(50),Validators.required] ],
+      middleName: [this.customer.middleName ,[Validators.required]],
+      lastName: [this.customer.lastName,[Validators.maxLength(50),Validators.required]],
+      birthDate: [
+        formatDate(new Date(bDate), 'yyyy-MM-dd', 'en'),
+        Validators.required,
       ],
-      middleName: [this.customer.middleName, [Validators.maxLength(50)]],
-      lastName: [
-        this.customer.lastName,
-        [Validators.required, Validators.maxLength(50)],
-      ],
-      birthDate: [this.customer.birthDate, Validators.required],
       gender: [this.customer.gender, Validators.required],
-      fatherName: [this.customer.fatherName, [Validators.maxLength(50)]],
-      motherName: [this.customer.motherName, [Validators.maxLength(50)]],
+      fatherName: [this.customer.fatherName],
+      motherName: [this.customer.motherName],
       nationalityId: [
         this.customer.nationalityId,
         [Validators.pattern('^[0-9]{11}$'), Validators.required],
@@ -84,15 +90,22 @@ export class UpdateCustomerComponent implements OnInit {
   checkInvalid() {
     if (this.updateCustomerForm.invalid) {
       this.isShow = true;
-
+      return;
+    }
+    let date = new Date(this.updateCustomerForm.get('birthDate')?.value);
+    let age = this.today.getFullYear() - date.getFullYear();
+    if (age < 18) {
+      alert('Reşit ol da gel abisi.');
       return;
     }
     if (
       this.updateCustomerForm.value.nationalityId ===
       this.customer.nationalityId
-    )
+    ) {
       this.updateCustomer();
-    else this.checkTcNum(this.updateCustomerForm.value.nationalityId);
+    } else {
+      this.checkTcNum(this.updateCustomerForm.value.nationalityId);
+    }
   }
   checkTcNum(id: number) {
     this.customerService.getList().subscribe((response) => {
@@ -126,5 +139,12 @@ export class UpdateCustomerComponent implements OnInit {
     this.router.navigateByUrl(
       `/dashboard/customers/customer-info/${this.selectedCustomerId}`
     );
+  }
+  onDateChange(event: any) {
+    let date = new Date(event.target.value);
+    if (date.getFullYear() > this.today.getFullYear()) {
+      this.updateCustomerForm.get('birthDate')?.setValue('');
+      alert('Gelecekten mi geliyorsun?');
+    }
   }
 }
