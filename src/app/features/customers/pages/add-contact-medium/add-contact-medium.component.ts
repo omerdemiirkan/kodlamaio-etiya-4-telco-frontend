@@ -14,6 +14,7 @@ export class AddContactMediumComponent implements OnInit {
   contactForm!: FormGroup;
   customer!: Customer;
   isShow:Boolean=false
+  displayBasic!: boolean;
 
   constructor(
     private customersService: CustomersService,
@@ -30,11 +31,11 @@ export class AddContactMediumComponent implements OnInit {
   }
   createFormContactMedium() {
     this.contactForm = this.formBuilder.group({
-      email: [this.customer.contactMedium?.email, Validators.required],
+      email: [this.customer.contactMedium?.email, [Validators.email,Validators.required]],
       homePhone: [this.customer.contactMedium?.homePhone, Validators.required],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        Validators.required,
+        [Validators.pattern('^[0-9]{11}$'),Validators.required],
       ],
       fax: [this.customer.contactMedium?.fax, Validators.required],
     });
@@ -56,6 +57,7 @@ export class AddContactMediumComponent implements OnInit {
     }
     else{
       this.isShow = true
+      this.displayBasic = true;
     }
   }
 
@@ -81,4 +83,16 @@ export class AddContactMediumComponent implements OnInit {
       },
     });
   }
+  isNumber(event: any): boolean {
+    console.log(event);
+    const pattern = /[0-9]/;
+    const char = String.fromCharCode(event.which ? event.which : event.keyCode);
+    if (pattern.test(char)) return true;
+
+    event.preventDefault();
+    return false;
+  }
+
+
+
 }

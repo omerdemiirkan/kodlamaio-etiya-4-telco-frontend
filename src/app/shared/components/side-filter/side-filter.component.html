@@ -14,6 +14,7 @@
         type="number"
         etiyaInput="dark"
         formControlName="nationalityId"
+        (keypress)="isNumber($event)"
         onKeyPress="if(this.value.length==11) return false;"
         #nationalityId
       />
@@ -23,6 +24,7 @@
         type="number"
         etiyaInput="dark"
         formControlName="customerId"
+        (keypress)="isNumber($event)"
         #customerId
       />
 
@@ -31,6 +33,7 @@
         type="text"
         etiyaInput="dark"
         formControlName="accountNumber"
+        maxlength="10"
         #accountNumber
       />
 
@@ -40,6 +43,7 @@
         etiyaInput="dark"
         formControlName="gsmNumber"
         maxlength="11"
+        (keypress)="isNumber($event)"
         #gsmNumber
       />
 
@@ -68,6 +72,7 @@
         type="text"
         etiyaInput="dark"
         formControlName="orderNumber"
+        (keypress)="isNumber($event)"
         #orderNumber
       />
     </form>

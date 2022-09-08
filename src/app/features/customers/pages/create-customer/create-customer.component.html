@@ -221,6 +221,7 @@
                       'invalid-input':
                         isShow && profileForm.controls['nationalityId'].errors
                     }"
+                    (keypress)="isNumber($event)"
                   />
                 </div>
                 <small

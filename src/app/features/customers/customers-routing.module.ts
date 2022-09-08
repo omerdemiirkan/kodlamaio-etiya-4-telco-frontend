@@ -24,7 +24,11 @@ const routes: Routes = [
   { path: 'customer-dashboard', component: CustomerDashboardComponent },
   { path: 'contact-medium', component: AddContactMediumComponent },
   { path: 'create-customer', component: CreateCustomerComponent },
+  
   { path: 'add-address-info', component: AddAddressInfoComponent },
+
+  { path: 'update-address-info/:id', component: AddAddressInfoComponent },
+  
   { path: 'list-address-info', component: ListAddressInfoComponent },
   { path: 'update-customer/:id', component: UpdateCustomerComponent },
   { path: 'customer-address/:id', component: CustomerAddressComponent },

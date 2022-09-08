@@ -36,6 +36,6 @@ export class CustomerInfoComponent implements OnInit {
   }
 
   getCustomerId(customer: Customer) {
-    this.router.navigateByUrl(`/update-customer/${customer.id}`);
+    this.router.navigateByUrl(`/dashboard/customers/update-customer/${customer.id}`);
   }
 }

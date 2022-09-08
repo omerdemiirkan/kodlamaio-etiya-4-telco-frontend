@@ -80,3 +80,8 @@ small{
   font-weight: 200!important;
   font-size: 15px!important;
 }
+
+:host ::ng-deep .p-dialog .p-dialog-content{
+  color: red;
+  font-weight: 700;
+}

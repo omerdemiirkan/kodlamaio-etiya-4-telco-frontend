@@ -34,6 +34,9 @@ import { TableScrollComponent } from './components/table-scroll/table-scroll.com
 import { TableAccordionHeaderComponent } from './components/table-accordion-header/table-accordion-header.component';
 import { StoreModule } from '@ngrx/store';
 import { sharedReducers } from './store/shared.reducers';
+import { ValidationDialogPopupComponent } from './components/validation-dialog-popup/validation-dialog-popup.component';
+
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -63,6 +66,7 @@ import { sharedReducers } from './store/shared.reducers';
     CheckBoxDirective,
     TableScrollComponent,
     TableAccordionHeaderComponent,
+    ValidationDialogPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -72,6 +76,7 @@ import { sharedReducers } from './store/shared.reducers';
     ReactiveFormsModule,
     RouterModule,
     StoreModule.forRoot(sharedReducers),
+    DialogModule
   ],
   exports: [
     OverlayTitleComponent,

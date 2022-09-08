@@ -8,7 +8,7 @@
       "lastName": "Gronw",
       "birthDate": "4/15/1998",
       "gender": "Female",
-      "nationalityId": 48776304564,
+      "nationalityId": "68951141024",
       "role": "cooperative",
       "motherName": "Hanna",
       "fatherName": "Chris",
@@ -32,6 +32,18 @@
           "street": "Oak Valley",
           "flatNumber": 18,
           "description": "68 Hudson Street"
+        },
+        {
+          "street": "",
+          "flatNumber": "",
+          "description": "",
+          "id": 3
+        },
+        {
+          "street": "adatepe mahhalesi 8/5 sokak no:14 daire:4",
+          "flatNumber": 2,
+          "description": "adatepe mahhalesi 8/5 sokak no:14 daire:4",
+          "id": 4
         }
       ],
       "contactMedium": {
@@ -1119,6 +1131,16 @@
           "street": "Mariners Cove",
           "flatNumber": 12,
           "description": "302 Cascade Avenue"
+        },
+        {
+          "city": {
+            "id": 3,
+            "name": "Chicago"
+          },
+          "street": "",
+          "flatNumber": "",
+          "description": "",
+          "id": 2
         }
       ],
       "contactMedium": {
@@ -2565,6 +2587,55 @@
           ]
         }
       ]
+    },
+    {
+      "customerId": 9999,
+      "role": "individual",
+      "addresses": [],
+      "contactMedium": {
+        "email": "adsada",
+        "homePhone": "2342",
+        "mobilePhone": "545454",
+        "fax": "24242",
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "id": 21
+    },
+    {
+      "customerId": 9999,
+      "firstName": "Ömer Faruk",
+      "middleName": null,
+      "lastName": "Demirkan",
+      "birthDate": "2022-09-09",
+      "gender": "Male",
+      "nationalityId": 11111111111,
+      "role": "individual",
+      "motherName": "vnvnvnvnv",
+      "fatherName": "mönön",
+      "addresses": [
+        {
+          "city": {
+            "id": 8,
+            "name": "San Jose"
+          },
+          "street": "2342424",
+          "flatNumber": "324242",
+          "description": "223424242424",
+          "type": "[CustomerToAdd] Add Address Info",
+          "id": 1
+        }
+      ],
+      "contactMedium": {
+        "email": "adsada",
+        "homePhone": "2342",
+        "mobilePhone": "545454",
+        "fax": "24242",
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "type": "[CustomerToAdd] Set Demographic Info",
+      "id": 22
     }
   ],
   "offers": [
