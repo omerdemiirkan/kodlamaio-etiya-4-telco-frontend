@@ -15,6 +15,8 @@ export class CustomerAddressComponent implements OnInit {
   customer!: Customer;
   addressToDelete!: Address;
 
+  omer!:boolean
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private customerService: CustomersService,
@@ -81,5 +83,18 @@ export class CustomerAddressComponent implements OnInit {
       .subscribe((data) => {
         this.getCustomerById();
       });
+  }
+  handleConfigInput(event: any) {
+    this.customer.addresses = this.customer.addresses?.map((adr) => {
+      const newAddress = { ...adr, isMain: false };
+      return newAddress;
+    });
+    let findAddress = this.customer.addresses?.find((adr) => {
+      return adr.id == event.target.value;
+    });
+    findAddress!.isMain = true;
+    this.customerService.update(this.customer).subscribe((data) => {
+      console.log(data);
+    });
   }
 }

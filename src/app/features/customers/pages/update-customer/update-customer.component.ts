@@ -1,3 +1,5 @@
+
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +16,7 @@ export class UpdateCustomerComponent implements OnInit {
   updateCustomerForm!: FormGroup;
   selectedCustomerId!: number;
   customer!: Customer;
-  isShow:Boolean=false
+  isShow: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,14 +32,23 @@ export class UpdateCustomerComponent implements OnInit {
 
   createFormUpdateCustomer() {
     this.updateCustomerForm = this.formBuilder.group({
-      firstName: [this.customer.firstName, Validators.required],
-      middleName: [this.customer.middleName],
-      lastName: [this.customer.lastName, Validators.required],
+      firstName: [
+        this.customer.firstName,
+        [Validators.required, Validators.maxLength(50)],
+      ],
+      middleName: [this.customer.middleName, [Validators.maxLength(50)]],
+      lastName: [
+        this.customer.lastName,
+        [Validators.required, Validators.maxLength(50)],
+      ],
       birthDate: [this.customer.birthDate, Validators.required],
       gender: [this.customer.gender, Validators.required],
-      fatherName: [this.customer.fatherName],
-      motherName: [this.customer.motherName],
-      nationalityId: [this.customer.nationalityId, [Validators.pattern('^[0-9]{11}$'), Validators.required]],
+      fatherName: [this.customer.fatherName, [Validators.maxLength(50)]],
+      motherName: [this.customer.motherName, [Validators.maxLength(50)]],
+      nationalityId: [
+        this.customer.nationalityId,
+        [Validators.pattern('^[0-9]{11}$'), Validators.required],
+      ],
     });
   }
 
@@ -57,36 +68,58 @@ export class UpdateCustomerComponent implements OnInit {
     }
   }
 
-  UpdateCustomer() {
-    if (this.updateCustomerForm.valid) {
-      this.isShow = false
-      this.update();
-    }
-    else{
-      this.isShow = true
-    }
-  }
-
-  update() {
+  updateCustomer() {
+    this.isShow = false;
     const customer: Customer = Object.assign(
       { id: this.customer.id },
       this.updateCustomerForm.value
     );
-    this.customerService.update(customer, this.customer).subscribe(() => {
-      setTimeout(() => {
+    this.customerService
+      .updateDemographicInfo(customer, this.customer)
+      .subscribe(() => {
         this.router.navigateByUrl(
           `/dashboard/customers/customer-info/${customer.id}`
         );
-        // this.messageService.add({
-        //   detail: 'Sucsessfully updated',
-        //   severity: 'success',
-        //   summary: 'Update',
-        //   key: 'etiya-custom',
-        // });
-      }, 1000);
-    });
+        
+      });
   }
 
+  checkInvalid() {
+    if (this.updateCustomerForm.invalid) {
+      this.isShow = true;
+      this.messageService.add({
+        detail: 'Error created',
+        severity: 'danger',
+        summary: 'Error',
+        key: 'etiya-custom',
+      });
+      return;
+    }
+    if (
+      this.updateCustomerForm.value.nationalityId ===
+      this.customer.nationalityId
+    )
+      this.updateCustomer();
+    else this.checkTcNum(this.updateCustomerForm.value.nationalityId);
+  }
+  checkTcNum(id: number) {
+    this.customerService.getList().subscribe((response) => {
+      let matchCustomer = response.find((item) => {
+        return item.nationalityId == id;
+      });
+      if (matchCustomer) {
+        this.messageService.add({
+          detail: 'Error created',
+          severity: 'danger',
+          summary: 'Error',
+          key: 'etiya-custom',
+        });
+      } else this.updateCustomer();
+    });
+  }
+  update() {
+    this.checkInvalid();
+  }
   isNumber(event: any): boolean {
     console.log(event);
     const pattern = /[0-9]/;
@@ -101,4 +134,5 @@ export class UpdateCustomerComponent implements OnInit {
     this.router.navigateByUrl(`/dashboard/customers/customer-info/${this.selectedCustomerId}`)
 
   }
+  
 }

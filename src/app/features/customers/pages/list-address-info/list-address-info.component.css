@@ -66,3 +66,18 @@
   box-shadow: 4px 6px 2px rgba(0, 0, 0, 0.25), inset -1px 1px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
 }
+::ng-deep .p-dialog{
+  background-color: #2a5183 !important;
+
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content{
+  color: #2a5183;
+  font-weight: 700;
+  font-family: 'Anybody';
+
+}
+.header{
+  color:#f58220;
+  font-weight: 900;
+}

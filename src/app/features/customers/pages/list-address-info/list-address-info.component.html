@@ -37,7 +37,7 @@
               </tr>
               <ng-template #customerAddressList>
                 <tr *ngFor="let address of customer.addresses">
-                  <th style="display: flex">
+                  <div>
                     <div>
                       <button
                         (click)="selectAddressId(address.id)"
@@ -48,10 +48,25 @@
                         etiyaButton="remove"
                       ></button>
                     </div>
-                    <div style="margin-left: 50px">
-                      {{ address.city.name }}
+
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="flexRadioDefault"
+                        id="flexRadioDefault1"
+                        (change)="handleConfigInput($event)"
+                        value="{{ address.id }}"
+                        [checked]="
+                          this.customer.addresses &&
+                          this.customer.addresses.length <= 1
+                        "
+                      />
+                      <label class="form-check-label" for="flexRadioDefault1">
+                      </label>
                     </div>
-                  </th>
+                  </div>
+                  <th>{{ address.city.name }}</th>
                   <td>{{ address.street }}</td>
                   <td>{{ address.flatNumber }}</td>
                   <td>{{ address.description }}</td>
@@ -87,3 +102,19 @@
     </div>
   </app-main-layout>
 </div>
+<p-dialog
+  [(visible)]="displayBasic"
+  [style]="{ width: '30vw', height: '20vw' }"
+>
+  <h5 class="header">Warning</h5>
+  <p>
+    The address cannot be deleted because the customer only has one address.
+  </p>
+  <p></p>
+  <ng-template pTemplate="footer">
+    <p-button
+      (click)="displayBasic = false"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

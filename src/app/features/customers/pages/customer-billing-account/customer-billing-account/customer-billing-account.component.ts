@@ -20,7 +20,7 @@ export class CustomerBillingAccountComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
   billingAccount!: BillingAccount;
-
+  addresses!: Address;
   billingAdress: Address[] = [];
 
   constructor(
@@ -104,5 +104,28 @@ export class CustomerBillingAccountComponent implements OnInit {
     this.customerService
       .addBillingAccount(this.billingAccount, this.customer)
       .subscribe();
+  }
+  getMainAddress() {
+    this.customerService
+      .getCustomerById(this.selectedCustomerId)
+      .subscribe((data) => {
+        data.addresses?.forEach((adr) => {
+          if (adr.isMain == true) this.addresses = adr;
+        });
+      });
+  }
+  
+  handleConfigInput(event: any) {
+    this.customer.addresses = this.customer.addresses?.map((adr) => {
+      const newAddress = { ...adr, isMain: false };
+      return newAddress;
+    });
+    let findAddress = this.customer.addresses?.find((adr) => {
+      return adr.id == event.target.value;
+    });
+    findAddress!.isMain = true;
+    this.customerService.update(this.customer).subscribe((data) => {
+      console.log(data);
+    });
   }
 }

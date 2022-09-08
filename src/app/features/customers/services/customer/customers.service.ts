@@ -167,7 +167,7 @@ export class CustomersService {
     return this.httpClient.delete<Customer>(`${this.apiControllerUrl}/${id}`);
   }
 
-  update(
+  updateDemographicInfo(
     customerDemographicInfo: any,
     customer: Customer
   ): Observable<Customer> {
@@ -185,6 +185,13 @@ export class CustomersService {
     return this.httpClient.put<Customer>(
       `${this.apiControllerUrl}/${customer.id}`,
       newCustomer
+    );
+  }
+
+  update(customer: Customer): Observable<Customer> {
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      customer
     );
   }
 
