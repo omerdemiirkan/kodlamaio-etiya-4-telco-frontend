@@ -104,31 +104,91 @@ export class AddCustomerAddressComponent implements OnInit {
     }
   
   }
+  isMainAdd() {
+    return this.customer.addresses?.length == 0 ? true : false;
+  }
+
+  getSelectedIsMain() {
+    let selectedAddress = this.customer.addresses?.find(
+      (address) => address.id == this.selectedAddressId
+    );
+    return selectedAddress?.isMain;
+  }
+
+  
+  checkValid() {
+    if (this.addressForm.invalid) {
+      this.isShow = true;
+    } else {
+      this.isShow = false;
+    }
+    return this.isShow;
+  }
 
   add() {
+    if (this.checkValid()) return;
     const addressToAdd: Address = {
       ...this.addressForm.value,
       city: this.cityList.find(
         (city) => city.id == this.addressForm.value.city
       ),
+      isMain: this.isMainAdd(),
     };
-    this.customerService.addAddress(addressToAdd, this.customer).subscribe();
+    this.customerService.addAddress(addressToAdd, this.customer).subscribe({
+      next: (data) => {
+        this.messageService.add({
+          detail: 'Sucsessfully added',
+          severity: 'success',
+          summary: 'Add',
+          key: 'etiya-custom',
+        });
+        this.router.navigateByUrl(
+          `/dashboard/customers/customer-address/${data.id}`
+        );
+      },
+      error: (err) => {
+        this.messageService.add({
+          detail: 'Error created',
+          severity: 'danger',
+          summary: 'Error',
+          key: 'etiya-custom',
+        });
+      },
+    });
   }
 
   update() {
+    if (this.checkValid()) return;
     const addressToUpdate: Address = {
       ...this.addressForm.value,
       id: this.selectedAddressId,
       city: this.cityList.find(
         (city) => city.id == this.addressForm.value.city
       ),
+      isMain: this.getSelectedIsMain(),
     };
     this.customerService
       .updateAddress(addressToUpdate, this.customer)
-      .subscribe();
-  }
-
-  closeIconRoute(){
-    this.router.navigateByUrl(`/dashboard/customers/customer-address/${this.selectedCustomerId}`)
+      .subscribe({
+        next: (data) => {
+          this.messageService.add({
+            detail: 'Sucsessfully added',
+            severity: 'success',
+            summary: 'Update',
+            key: 'etiya-custom',
+          });
+          this.router.navigateByUrl(
+            `/dashboard/customers/customer-address/${data.id}`
+          );
+        },
+        error: (err) => {
+          this.messageService.add({
+            detail: 'Error created',
+            severity: 'danger',
+            summary: 'Error',
+            key: 'etiya-custom',
+          });
+        },
+      });
   }
 }
