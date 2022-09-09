@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+
 import { Offer } from 'src/app/features/offers/models/offer';
 import { OfferService } from 'src/app/features/offers/services/offer/offer.service';
 import { OrderService } from 'src/app/features/orders/services/order/order.service';
@@ -124,6 +124,19 @@ export class ConfigurationProductComponent implements OnInit {
       console.log('basket: ', basket);
       if (basket === undefined) return;
       this.orderService.addOfferToOrderStore([...basket]);
+    });
+  }
+  handleConfigRadio(event: any) {
+    this.billingAdress = this.billingAdress?.map((adr) => {
+      const newAddress = { ...adr, isMain: false };
+      return newAddress;
+    });
+    let findAddress = this.billingAdress?.find((adr) => {
+      return adr.id == event.target.value;
+    });
+    findAddress!.isMain = true;
+    this.customersService.update(this.customer).subscribe((data) => {
+      this.getCustomerById();
     });
   }
 }
