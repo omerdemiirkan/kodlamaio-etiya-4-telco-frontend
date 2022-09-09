@@ -19,7 +19,7 @@
         #nationalityId
         onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
         max="99999999999"
-        min="99999999999"
+        min="10000000000"
       />
 
       <label class="e-label">CUSTOMER ID</label>
@@ -31,8 +31,8 @@
         onKeyPress="if(this.value.length==7) return false;"
         #customerId
         onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
-        max="99999999999"
-        min="99999999999"
+        max="9999999"
+        min="1000000"
       />
 
       <label class="e-label">ACCOUNT NUMBER</label>
@@ -45,7 +45,7 @@
         (keypress)="isNumber($event)"
         onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
         max="99999999999"
-        min="99999999999"
+        min="10000000000"
       />
 
       <label class="e-label">GSM NUMBER</label>
@@ -56,6 +56,9 @@
         maxlength="10"
         (keypress)="isNumber($event)"
         #gsmNumber
+        max="9999999999"
+        min="1000000000"
+        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
       />
 
       <label class="e-label">FIRST NAME</label>
@@ -87,8 +90,8 @@
         #orderNumber
         onKeyPress="if(this.value.length==10) return false;"
         onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
-        max="99999999999"
-        min="99999999999"
+        max="9999999999"
+        min="1000000000"
       />
     </form>
   </div>
