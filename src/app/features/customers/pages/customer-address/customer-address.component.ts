@@ -94,7 +94,7 @@ export class CustomerAddressComponent implements OnInit {
     });
     findAddress!.isMain = true;
     this.customerService.update(this.customer).subscribe((data) => {
-      console.log(data);
+      this.getCustomerById()
     });
   }
 }

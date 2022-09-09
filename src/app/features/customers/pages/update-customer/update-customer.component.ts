@@ -17,7 +17,6 @@ export class UpdateCustomerComponent implements OnInit {
   customer!: Customer;
   isShow: Boolean = false;
   today: Date = new Date();
-  
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,9 +27,8 @@ export class UpdateCustomerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCustomerById(); 
+    this.getCustomerById();
   }
-
 
   createFormUpdateCustomer() {
     console.log(this.customer.birthDate);
@@ -39,9 +37,15 @@ export class UpdateCustomerComponent implements OnInit {
       bDate = new Date(this.customer.birthDate);
     }
     this.updateCustomerForm = this.formBuilder.group({
-      firstName: [this.customer.firstName, [Validators.maxLength(50),Validators.required] ],
-      middleName: [this.customer.middleName ,[Validators.required]],
-      lastName: [this.customer.lastName,[Validators.maxLength(50),Validators.required]],
+      firstName: [
+        this.customer.firstName,
+        [Validators.maxLength(50), Validators.required],
+      ],
+      middleName: [this.customer.middleName, [Validators.required]],
+      lastName: [
+        this.customer.lastName,
+        [Validators.maxLength(50), Validators.required],
+      ],
       birthDate: [
         formatDate(new Date(bDate), 'yyyy-MM-dd', 'en'),
         Validators.required,
@@ -92,10 +96,13 @@ export class UpdateCustomerComponent implements OnInit {
       this.isShow = true;
       return;
     }
-    let date = new Date(this.updateCustomerForm.get('birthDate')?.value);
-    let age = this.today.getFullYear() - date.getFullYear();
-    if (age < 18) {
-      alert('Reşit ol da gel abisi.');
+    if (this.today.getFullYear()) {
+      this.messageService.add({
+        detail: 'Please enter a valid date of birth',
+        severity: 'danger',
+        summary: 'Error',
+        key: 'etiya-custom',
+      });
       return;
     }
     if (
@@ -144,7 +151,6 @@ export class UpdateCustomerComponent implements OnInit {
     let date = new Date(event.target.value);
     if (date.getFullYear() > this.today.getFullYear()) {
       this.updateCustomerForm.get('birthDate')?.setValue('');
-      alert('Gelecekten mi geliyorsun?');
     }
   }
 }

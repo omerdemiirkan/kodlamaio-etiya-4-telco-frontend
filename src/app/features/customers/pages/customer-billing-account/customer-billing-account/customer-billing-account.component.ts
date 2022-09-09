@@ -8,6 +8,7 @@ import { Address } from '../../../models/address';
 import { Customer } from '../../../models/customer';
 import { BillingAccount } from '../../../models/billingAccount';
 
+
 @Component({
   templateUrl: './customer-billing-account.component.html',
   styleUrls: ['./customer-billing-account.component.css'],
@@ -110,11 +111,14 @@ export class CustomerBillingAccountComponent implements OnInit {
       .getCustomerById(this.selectedCustomerId)
       .subscribe((data) => {
         data.addresses?.forEach((adr) => {
-          if (adr.isMain == true) this.addresses = adr;
+          if (adr.isMain == true) {
+            this.addresses = adr;
+            console.log(this.addresses);
+          }
         });
       });
   }
-  
+
   handleConfigInput(event: any) {
     this.customer.addresses = this.customer.addresses?.map((adr) => {
       const newAddress = { ...adr, isMain: false };

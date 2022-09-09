@@ -45,24 +45,19 @@
           <ng-template #customerAddressList>
             <tr *ngFor="let adr of customerAddress">
               <th>
-                <div class="d-flex justify-content-center align-items-center">
+                <div>
                   <button
                     (click)="selectAddressId(adr.id)"
                     etiyaButton="edit"
                   ></button>
-                  <div class="d-flex justify-content-center align-items-center">
-                    <button
-                      (click)="removePopup(adr)"
-                      etiyaButton="remove"
-                      [disabled]="adr.isMain"
-                    ></button>
-                  </div>
+
+                  <button
+                    (click)="removePopup(adr)"
+                    etiyaButton="remove"
+                    *ngIf="!adr.isMain"
+                  ></button>
                 </div>
-                <div
-                  class="form-check d-flex justify-content-end align-items-center"
-                >
-                  <label class="form-check-label" for="flexRadioDefault1">
-                  </label>
+                <div class="form-check ml-3 mt-3">
                   <input
                     class="form-check-input"
                     type="radio"
@@ -70,12 +65,10 @@
                     id="flexRadioDefault1"
                     (change)="handleConfigInput($event)"
                     value="{{ adr.id }}"
-                    [checked]="adr.isMain"
-                    [disabled]="
-                      this.customer.addresses &&
-                      this.customer.addresses.length <= 1
-                    "
+                    [checked]="adr.isMain == true"
                   />
+                  <label class="form-check-label" for="flexRadioDefault1">
+                  </label>
                 </div>
               </th>
               <th style="display: flex">

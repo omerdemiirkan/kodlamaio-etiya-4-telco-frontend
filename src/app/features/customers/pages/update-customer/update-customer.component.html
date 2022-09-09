@@ -90,6 +90,16 @@
                       updateCustomerForm.controls['birthDate'].errors
                   }"
                 />
+               
+                <small
+                  *ngIf=" isShow &&
+                  updateCustomerForm.controls['birthDate'].errors"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 220px; margin-top: -20px"
+                >
+                  Please enter a valid date of birth
+                </small>
+             
                 </div>
               </div>
               <div class="col-6">
