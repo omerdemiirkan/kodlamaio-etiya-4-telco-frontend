@@ -16,11 +16,13 @@
         <div class="e-address-form-container">
           <div class="row">
             <a
-              class="e-form-close"
-              style="cursor: pointer"
-              (click)="closeIconRoute()"
-              >X</a
-            >
+            class="e-form-close"
+            style="cursor: pointer;"
+            [routerLink]="
+              '/dashboard/customers/customer-address/' + selectedCustomerId
+            "
+            >X</a
+          >
           </div>
           <form *ngIf="addressForm" [formGroup]="addressForm">
             <div class="row">

@@ -17,11 +17,11 @@
           <app-table-info class="e-table">
             <thead>
               <tr class="table-title">
-                <th class="col-2"></th>
                 <th class="col-2">City</th>
                 <th class="col-2">Street Name</th>
-                <th class="col-2">Hause/Flat Number</th>
+                <th class="col-2">House/Flat Number</th>
                 <th class="col-2">Address Description</th>
+                <th class="col-2">Action</th>
               </tr>
             </thead>
             <tbody class="table-body">
@@ -31,7 +31,7 @@
                   else customerAddressList
                 "
               >
-                <th></th>
+                <th>Null</th>
                 <td>Null</td>
                 <td>Null</td>
                 <td>Null</td>
@@ -39,17 +39,9 @@
               </tr>
               <ng-template #customerAddressList>
                 <tr *ngFor="let address of customer.addresses">
-                  <div>
-                    <div>
-                      <button
-                        (click)="selectAddressId(address.id)"
-                        etiyaButton="edit"
-                      ></button>
-                      <button
-                        (click)="removePopup(address)"
-                        etiyaButton="remove"
-                      ></button>
-                      <div class="form-check">
+                  <th>
+                    <div class="row">
+                      <div class="col-2 d-flex justify-content-end">
                         <input
                           class="form-check-input"
                           type="radio"
@@ -57,20 +49,32 @@
                           id="flexRadioDefault1"
                           (change)="handleConfigInput($event)"
                           value="{{ address.id }}"
-                          [checked]="
-                            this.customer.addresses &&
-                            this.customer.addresses.length <= 1
-                          "
+                          [checked]="address.isMain == true"
                         />
                         <label class="form-check-label" for="flexRadioDefault1">
                         </label>
                       </div>
+                      <div class="col-10 e-city-name">
+                        {{ address.city.name }}
+                      </div>
                     </div>
-                  </div>
-                  <th>{{ address.city.name }}</th>
+                  </th>
                   <td>{{ address.street }}</td>
                   <td>{{ address.flatNumber }}</td>
                   <td>{{ address.description }}</td>
+                  <td class="d-flex justify-content-center">
+                    <button
+                      (click)="selectAddressId(address.id)"
+                      etiyaButton="edit"
+                    ></button>
+                    <button
+                      (click)="removePopup(address)"
+                      etiyaButton="remove"
+                      *ngIf="address.isMain==false"
+                      
+                     
+                    ></button>
+                  </td>
                 </tr>
               </ng-template>
             </tbody>
@@ -95,7 +99,7 @@
         <button
           etiyaButton="clear"
           routerLink="/dashboard/customers/contact-medium"
-          [disabled]="customer.addresses?.length === 0"
+          [disabled]="!customer.addresses || customer.addresses.length == 0"
         >
           NEXT
         </button>
@@ -103,19 +107,3 @@
     </div>
   </app-main-layout>
 </div>
-<p-dialog
-  [(visible)]="displayBasic"
-  [style]="{ width: '30vw', height: '20vw' }"
->
-  <h5 class="header">Warning</h5>
-  <p>
-    The address cannot be deleted because the customer only has one address.
-  </p>
-  <p></p>
-  <ng-template pTemplate="footer">
-    <p-button
-      (click)="displayBasic = false"
-      styleClass="p-button-text"
-    ></p-button>
-  </ng-template>
-</p-dialog>

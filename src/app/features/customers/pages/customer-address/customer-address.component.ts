@@ -10,12 +10,11 @@ import { CustomersService } from '../../services/customer/customers.service';
   styleUrls: ['./customer-address.component.css'],
 })
 export class CustomerAddressComponent implements OnInit {
+  
   selectedCustomerId!: number;
   customerAddress: Address[] = [];
   customer!: Customer;
   addressToDelete!: Address;
-
-  omer!:boolean
 
   constructor(
     private activatedRoute: ActivatedRoute,

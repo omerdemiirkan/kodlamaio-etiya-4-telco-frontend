@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Address } from '../../models/address';
 import { Customer } from '../../models/customer';
@@ -11,61 +11,82 @@ import { CustomersService } from '../../services/customer/customers.service';
   styleUrls: ['./list-address-info.component.css'],
 })
 export class ListAddressInfoComponent implements OnInit {
+
+  selectedCustomerId!: number;
+  customerAddress: Address[] = [];
   customer!: Customer;
   addressToDelete!: Address;
-  displayBasic!: boolean;
 
-  constructor(private customersService: CustomersService,
-    private router: Router,
-    private messageService: MessageService) {}
+  constructor(private customersService: CustomersService, private router: Router, private messageService: MessageService, private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    this.customersService.customerToAddModel$.subscribe((state) => {
-      this.customer = state;
-    });
-    this.messageService.clearObserver.subscribe((data) => {
-      if (data == 'reject') {
-        this.messageService.clear();
-      } else if (data == 'confirm') {
-        this.remove();
-        this.messageService.clear();
+
+    ngOnInit(): void {
+      this.customersService.customerToAddModel$.subscribe((state) => {
+        this.customer = state;
+      });
+      this.messageService.clearObserver.subscribe((data) => {
+        if (data == 'r') {
+          this.messageService.clear();
+        } else if (data == 'c') {
+          this.messageService.clear();
+          this.remove();
+        }
+      });
+    }
+
+    getCustomerById() {
+      this.activatedRoute.params.subscribe((params) => {
+        if (params['id']) this.selectedCustomerId = params['id'];
+      });
+      if (this.selectedCustomerId == undefined) {
+        //toast
+      } else {
+        this.customersService
+          .getCustomerById(this.selectedCustomerId)
+          .subscribe((data) => {
+            this.customer = data;
+            this.customerAddress = []
+            data.addresses?.forEach((adress) => {
+              this.customerAddress.push(adress);
+            });
+          });
       }
-    });
-  }
+    }
 
-  selectAddressId(id: number) {
-    let address = this.customer.addresses?.find((c) => c.id == id);
-    this.router.navigateByUrl(`/dashboard/customers/update-address-info/${address?.id}`);
-  }
+    selectAddressId(id: number) {
+      let address = this.customer.addresses?.find((c) => c.id == id);
+      this.router.navigateByUrl(`update-address-info/${address?.id}`);
+    }
+    removePopup(address: Address) {
+      this.addressToDelete = address;
+      this.messageService.add({
+        key: 'c',
+       
+        severity: 'warn',
+        detail: 'Are you sure to delete this address?',
+      });
+    }
+    remove() {
+      this.customersService
+        .removeAddress(this.customer,this.addressToDelete)
+        .subscribe((data) => {
+          
+          this.getCustomerById();
+        });
+    }
+    handleConfigInput(event: any) {
+      this.customer.addresses = this.customer.addresses?.map((adr) => {
+        const newAddress = { ...adr, isMain: false };
+        return newAddress;
+      });
+      let findAddress = this.customer.addresses?.find((adr) => {
+        return adr.id == event.target.value;
+      });
+      findAddress!.isMain = true;
+      this.customersService.update(this.customer).subscribe((data) => {
+        this.getCustomerById()
+      });
+    }
 
-  removePopup(address: Address) {
-    // if (this.customer.addresses && this.customer.addresses?.length <= 1) {
-    //   alert('1 adres varsa silemezsin.');
-    //   return;
-    // }
-    this.addressToDelete = address;
-    this.messageService.add({
-      key: 'c',
-      sticky: true,
-      severity: 'warn',
-      detail: 'Are you sure you want to delete?',
-    });
-  }
-  remove() {
-    this.customersService.removeAdressToStore(this.addressToDelete);
-  }
 
-  handleConfigInput(event: any) {
-    console.warn(event.isTrusted);
-    this.customer.addresses = this.customer.addresses?.map((adr) => {
-      const newAddress = { ...adr, isMain: false };
-      return newAddress;
-    });
-    let findAddress = this.customer.addresses?.find((adr) => {
-      return adr.id == event.target.value;
-    }) as Address;
-    findAddress!.isMain = true;
-
-    this.customersService.updateAddressInfoToStore(findAddress);
-  }
 }

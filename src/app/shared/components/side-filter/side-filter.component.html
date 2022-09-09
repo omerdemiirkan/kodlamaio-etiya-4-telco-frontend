@@ -11,22 +11,29 @@
     <form [formGroup]="searchForm">
       <label class="e-label mt-4">NATIONALITY ID</label>
       <input
-        type="number"
+        type="text"
         etiyaInput="dark"
         formControlName="nationalityId"
         (keypress)="isNumber($event)"
         onKeyPress="if(this.value.length==11) return false;"
         #nationalityId
+        
+        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+        max="99999999999"
+        min="99999999999"
       />
 
       <label class="e-label">CUSTOMER ID</label>
       <input
-        type="number"
+        type="text"
         etiyaInput="dark"
         formControlName="customerId"
         (keypress)="isNumber($event)"
         onKeyPress="if(this.value.length==7) return false;"
         #customerId
+        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+        max="99999999999"
+        min="99999999999"
       />
 
       <label class="e-label">ACCOUNT NUMBER</label>
@@ -36,6 +43,9 @@
         formControlName="accountNumber"
         maxlength="11"
         #accountNumber
+        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+        max="99999999999"
+        min="99999999999"
       />
 
       <label class="e-label">GSM NUMBER</label>
@@ -70,19 +80,23 @@
 
       <label class="e-label">ORDER NUMBER</label>
       <input
-        type="number"
+        type="text"
         etiyaInput="dark"
         formControlName="orderNumber"
         (keypress)="isNumber($event)"
         #orderNumber
-        
         onKeyPress="if(this.value.length==10) return false;"
+        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+        max="99999999999"
+        min="99999999999"
       />
     </form>
   </div>
   <div class="e-btn-container">
-    <button type="button" etiyaButton="clear" 
-    [disabled]="
+    <button
+      type="button"
+      etiyaButton="clear"
+      [disabled]="
         nationalityId.value.length === 0 &&
         customerId.value.length === 0 &&
         accountNumber.value.length === 0 &&
@@ -90,7 +104,11 @@
         firstName.value.length === 0 &&
         lastName.value.length === 0 &&
         orderNumber.value.length === 0
-      "(click)="clear()">CLEAR</button>
+      "
+      (click)="clear()"
+    >
+      CLEAR
+    </button>
     <button
       type="button"
       etiyaButton="search"
