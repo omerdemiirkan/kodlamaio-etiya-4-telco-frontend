@@ -61,7 +61,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="middleName"
-                    maxlength="50"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -80,7 +80,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="lastName"
-                    maxlength="50"
+                    maxlength="100"
                     [ngClass]="{
                       'invalid-input':
                         isShow && profileForm.controls['lastName'].errors
@@ -180,7 +180,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="fatherName"
-                    maxlength="50"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -199,7 +199,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="motherName"
-                    maxlength="50"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -215,12 +215,14 @@
                   class="col-12 col-lg-8 d-flex justify-content-lg-start align-items-center"
                 >
                   <input
-                    type="number"
+                    type="text"
                     min="10000000000"
                     max="99999999999"
                     etiyaInput="dark"
                     formControlName="nationalityId"
                     (keypress)="isValid($event)"
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+     
                     onKeyPress="if(this.value.length==11) return false;"
                     [ngClass]="{
                       'invalid-input':

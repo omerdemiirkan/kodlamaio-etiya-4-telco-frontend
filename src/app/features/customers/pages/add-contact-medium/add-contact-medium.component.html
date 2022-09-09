@@ -28,7 +28,8 @@
                     etiyaInput="dark"
                     class="e-contact-input"
                     formControlName="email"
-                    maxlength="50"
+                    
+                    maxlength="100"
                     [ngClass]="{
                       'invalid-input':
                         isShow && contactForm.controls['email'].errors
@@ -49,7 +50,9 @@
                     class="e-contact-input"
                     formControlName="homePhone"
                     (keypress)="isNumber($event)"
-                    maxlength="11"
+                    maxlength="10"
+                    
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                   />
                 </div>
               </div>
@@ -69,7 +72,9 @@
                     formControlName="mobilePhone"
                     placeholder="05xx xxx xxxx"
                     (keypress)="isNumber($event)"
-                    maxlength="11"
+                    maxlength="10"
+                    
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     [ngClass]="{
                       'invalid-input':
                         isShow && contactForm.controls['mobilePhone'].errors
@@ -90,7 +95,9 @@
                     class="e-contact-input"
                     formControlName="fax"
                     (keypress)="isNumber($event)"
-                    maxlength="11"
+                    maxlength="10"
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+                  
                   />
                 </div>
               </div>

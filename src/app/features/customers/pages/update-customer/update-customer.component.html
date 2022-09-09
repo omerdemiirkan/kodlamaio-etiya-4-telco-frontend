@@ -37,7 +37,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="firstName"
-                    maxlength="50"
+                    maxlength="100"
                     [ngClass]="{
                       'invalid-input':
                         isShow &&
@@ -54,6 +54,7 @@
                     type="text "
                     etiyaInput="dark"
                     formControlName="middleName"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -66,7 +67,7 @@
                     type="text "
                     etiyaInput="dark"
                     formControlName="lastName"
-                    maxlength="50"
+                    maxlength="100"
                     [ngClass]="{
                       'invalid-input':
                         isShow && updateCustomerForm.controls['lastName'].errors
@@ -133,6 +134,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="fatherName"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -144,6 +146,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="motherName"
+                    maxlength="100"
                   />
                 </div>
               </div>
@@ -152,11 +155,13 @@
                   <label class="col-5" for="nationalId">Nationality ID:</label>
                   <input
                     class="col-7"
-                    type="number"
+                    type="text"
                     etiyaInput="dark"
                     formControlName="nationalityId"
                     onKeyPress="if(this.value.length==11) return false;"
                     (keypress)="isNumber($event)"
+                    
+                    onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     [ngClass]="{
                       'invalid-input':
                         isShow &&
