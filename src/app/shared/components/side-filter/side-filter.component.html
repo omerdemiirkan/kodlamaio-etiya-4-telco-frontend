@@ -17,7 +17,6 @@
         (keypress)="isNumber($event)"
         onKeyPress="if(this.value.length==11) return false;"
         #nationalityId
-        
         onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
         max="99999999999"
         min="99999999999"
@@ -43,6 +42,7 @@
         formControlName="accountNumber"
         maxlength="11"
         #accountNumber
+        (keypress)="isNumber($event)"
         onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
         max="99999999999"
         min="99999999999"
