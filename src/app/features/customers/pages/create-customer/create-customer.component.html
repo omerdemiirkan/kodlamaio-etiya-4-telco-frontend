@@ -43,7 +43,7 @@
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 400px; margin-top: -20px"
                 >
-                  Mandatory fields can not left blank!
+                This field cannot left blank!
                 </small>
               </div>
             </div>
@@ -93,7 +93,7 @@
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 400px; margin-top: -20px"
                 >
-                  Mandatory fields can not left blank!
+                This field cannot left blank!
                 </small>
               </div>
             </div>
@@ -120,13 +120,13 @@
                   />
                 </div>
                 <small
-                  *ngIf="isShow && profileForm.controls['birthDate'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 380px; margin-top: -20px"
-                >
-                  Please fill in the required fields
-                </small>
+                *ngIf="isShow && profileForm.controls['birthDate'].errors"
+                id="lastName-help"
+                class="p-error block ng-invalid ng-dirty"
+                style="color: red; margin-left: 400px; margin-top: -20px"
+              >
+              This field cannot left blank!
+              </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -162,7 +162,7 @@
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 400px; margin-top: 11px"
                 >
-                  Mandatory fields can not left blank!
+                  This field cannot left blank!
                 </small>
               </div>
             </div>
@@ -229,13 +229,13 @@
                   />
                 </div>
                 <small
-                  *ngIf="isShow && profileForm.controls['nationalityId'].errors"
-                  id="lastName-help"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 400px; margin-top: -20px"
-                >
-                  Nationality Id cannot be less than 11 digits!
-                </small>
+                *ngIf="isShow && profileForm.controls['nationalityId'].errors"
+                id="lastName-help"
+                class="p-error block ng-invalid ng-dirty"
+                style="color: red; margin-left: 400px; margin-top: -20px"
+              >
+              Please enter the information in accordance with the format!
+              </small>
               </div>
             </div>
           </div>

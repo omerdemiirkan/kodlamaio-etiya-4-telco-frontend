@@ -17,7 +17,7 @@ export class UpdateCustomerComponent implements OnInit {
   customer!: Customer;
   isShow: Boolean = false;
   today: Date = new Date();
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -27,7 +27,6 @@ export class UpdateCustomerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.getCustomerById();
   }
 
@@ -109,7 +108,7 @@ export class UpdateCustomerComponent implements OnInit {
       });
       return;
     }
- 
+
     if (
       this.updateCustomerForm.value.nationalityId ===
       this.customer.nationalityId
@@ -124,8 +123,10 @@ export class UpdateCustomerComponent implements OnInit {
       });
       if (matchCustomer) {
         this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
           detail: 'A customer is already exist with this Nationality ID',
-          key: 'etiya-custom',
+          key: 'okey',
         });
       } else this.updateCustomer();
     });

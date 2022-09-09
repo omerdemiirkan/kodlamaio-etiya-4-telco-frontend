@@ -56,7 +56,7 @@ export class CreateCustomerComponent implements OnInit {
       });
       if (matchCustomer) {
         this.messageService.add({
-          detail: 'This user already exist',
+          detail: 'A customer is already exist with this Nationality ID',
           severity: 'warn',
           summary: 'Warning',
           key: 'okey',
