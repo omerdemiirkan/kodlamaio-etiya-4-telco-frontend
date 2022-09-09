@@ -53,11 +53,15 @@
         type="text"
         etiyaInput="dark"
         formControlName="gsmNumber"
+
+       mask="(000) 000-0000"
         maxlength="10"
-        (keypress)="isNumber($event)"
         #gsmNumber
+        ngModel
+        (ngModelChange)="onChange($event, gsmNumber)"
         max="9999999999"
         min="1000000000"
+        (keypress)="isNumber($event)"
         onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
       />
 
@@ -65,6 +69,7 @@
       <input
         type="text"
         etiyaInput="dark"
+        
         formControlName="firstName"
         minlength="2"
         maxlength="100"
@@ -87,6 +92,7 @@
         etiyaInput="dark"
         formControlName="orderNumber"
         (keypress)="isNumber($event)"
+        
         #orderNumber
         onKeyPress="if(this.value.length==10) return false;"
         onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "

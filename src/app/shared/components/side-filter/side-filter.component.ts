@@ -11,6 +11,9 @@ export class SideFilterComponent implements OnInit {
   @Input() filterTitle!: string;
   searchForm!: FormGroup;
   @Output() filteredData: any = new EventEmitter();
+
+  public fixedNumber!: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private customersService: CustomersService
@@ -38,19 +41,22 @@ export class SideFilterComponent implements OnInit {
       ...this.searchForm.value,
       nationalityId: nationalityId,
     };
-    console.log(nationalityId)
-    this.customersService
-      .getListByFilter(newSearchForm)
-      .subscribe((data) => {
-        this.filteredData.emit(data);
-      });
+    console.log(nationalityId);
+    this.customersService.getListByFilter(newSearchForm).subscribe((data) => {
+      this.filteredData.emit(data);
+    });
   }
   clear() {
     this.createSearchForm();
   }
 
+  public onChange(value: string, inputElem: HTMLInputElement) {
+    this.fixedNumber = value === '' ? '0' : value;
+    inputElem.value = this.fixedNumber;
+  }
+
   isNumber(event: any): boolean {
-    console.log(event);
+    console.log(event.target.value);
     const pattern = /[0-9]/;
     const char = String.fromCharCode(event.which ? event.which : event.keyCode);
     if (pattern.test(char)) return true;
