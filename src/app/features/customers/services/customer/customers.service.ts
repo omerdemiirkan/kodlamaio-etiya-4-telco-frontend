@@ -249,10 +249,16 @@ export class CustomersService {
       ...customer,
       billingAccounts: [
         ...(customer.billingAccounts || []),
-        { ...billingAccount, id:  Math.floor(Math.random()*100000) },
+        {
+          ...billingAccount,
+          id: Math.floor(Math.random() * 100000),
+          accountNumber: Math.floor(
+            1000000000 + Math.random() * 90000000
+          ).toString(),
+          status: 'active',
+        },
       ],
     };
-    console.log(newCustomer);
     return this.httpClient.put<Customer>(
       `${this.apiControllerUrl}/${customer.id}`,
       newCustomer

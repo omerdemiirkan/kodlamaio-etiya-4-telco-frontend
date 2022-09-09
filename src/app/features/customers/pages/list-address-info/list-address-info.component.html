@@ -1,3 +1,4 @@
+
 <div class="e-address-info-container">
   <app-navbar></app-navbar>
   <div class="container-fluid">
@@ -19,7 +20,7 @@
               <tr class="table-title">
                 <th class="col-2">City</th>
                 <th class="col-2">Street Name</th>
-                <th class="col-2">House/Flat Number</th>
+                <th class="col-2">Hause/Flat Number</th>
                 <th class="col-2">Address Description</th>
                 <th class="col-2">Action</th>
               </tr>
@@ -31,11 +32,11 @@
                   else customerAddressList
                 "
               >
-                <th>Null</th>
-                <td>Null</td>
-                <td>Null</td>
-                <td>Null</td>
-                <td>Null</td>
+                <th></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
               <ng-template #customerAddressList>
                 <tr *ngFor="let address of customer.addresses">
@@ -49,7 +50,11 @@
                           id="flexRadioDefault1"
                           (change)="handleConfigInput($event)"
                           value="{{ address.id }}"
-                          [checked]="address.isMain == true"
+                          [checked]="
+                            address.isMain == true &&
+                            this.customer.addresses &&
+                            this.customer.addresses.length <= 1
+                          "
                         />
                         <label class="form-check-label" for="flexRadioDefault1">
                         </label>
@@ -59,6 +64,7 @@
                       </div>
                     </div>
                   </th>
+
                   <td>{{ address.street }}</td>
                   <td>{{ address.flatNumber }}</td>
                   <td>{{ address.description }}</td>
@@ -70,9 +76,7 @@
                     <button
                       (click)="removePopup(address)"
                       etiyaButton="remove"
-                      *ngIf="address.isMain==false"
-                      
-                     
+                      [disabled]="address.isMain"
                     ></button>
                   </td>
                 </tr>
@@ -107,3 +111,19 @@
     </div>
   </app-main-layout>
 </div>
+<p-dialog
+  [(visible)]="displayBasic"
+  [style]="{ width: '30vw', height: '20vw' }"
+>
+  <h5 class="header">Warning</h5>
+  <p>
+    The address that you want to delete is a default address. Please, change default address then try again.
+  </p>
+  <p></p>
+  <ng-template pTemplate="footer">
+    <p-button
+      (click)="displayBasic = false"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

@@ -39,7 +39,7 @@ export class UpdateCustContactMediumComponent implements OnInit {
       homePhone: [this.customer.contactMedium?.homePhone],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        [Validators.pattern('^[0-9]{11}$'),Validators.required]
+        [Validators.pattern('^[0-9]{10}$'),Validators.required]
       ],
       fax: [this.customer.contactMedium?.fax],
     });

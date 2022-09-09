@@ -12,6 +12,8 @@ export class CustomerInfoComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
 
+  displayBasic!:boolean
+
   customerToDelete!: Customer;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -27,16 +29,16 @@ export class CustomerInfoComponent implements OnInit {
 
   checkIsActiveStatus() {
     this.messageService.clearObserver.subscribe((data) => {
-      if (data == 'reject') {
+      if (data == 'r') {
         this.messageService.clear();
-      } else if (data == 'confirm') {
+      } else if (data == 'c') {
         let filteredData = this.customer.billingAccounts?.find((c) => {
           return c.status === 'active';
         });
         if (filteredData) {
           this.messageService.add({
             key: 'okey',
-            sticky: true,
+
             severity: 'warn',
             detail:
               'Since the customer has active products, the customer cannot be deleted.',
@@ -84,4 +86,25 @@ export class CustomerInfoComponent implements OnInit {
       this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
     });
   }
+  // remove() {
+  //   this.customerToDelete.billingAccounts?.forEach((bill) => {
+  //     bill.orders.forEach((ord) => {
+  //       ord.offers?.forEach((ofr) => {
+  //         let findActiveProduct = ofr.products.find((product) => {
+  //           product.status === 'active';
+  //         });
+  //         if (findActiveProduct) {
+  //           this.displayBasic = true;
+  //           return;
+  //         } else {
+  //           this.customerService
+  //             .delete(this.customerToDelete.id as number)
+  //             .subscribe((data) => {
+  //               this.router.navigateByUrl("/dashboard");
+  //             });
+  //         }
+  //       });
+  //     });
+  //   });
+  // }
 }

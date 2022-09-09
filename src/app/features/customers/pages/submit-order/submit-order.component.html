@@ -62,7 +62,11 @@
           </button>
         </div>
         <div class="col-6 d-flex justify-content-lg-end">
-          <button [etiyaButton]="'clear'" (click)="submitOrder()">
+          <button
+            [etiyaButton]="'clear'"
+            routerLink="/dashboard"
+            (click)="submitOrder()"
+          >
             Submit
           </button>
         </div>
