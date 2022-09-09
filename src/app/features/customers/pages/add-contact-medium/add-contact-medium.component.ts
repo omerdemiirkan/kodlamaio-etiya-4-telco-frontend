@@ -34,7 +34,7 @@ export class AddContactMediumComponent implements OnInit {
       homePhone: [this.customer.contactMedium?.homePhone, Validators.required],
       mobilePhone: [
         this.customer.contactMedium?.mobilePhone,
-        [Validators.pattern('^[0-9]{11}$'),Validators.required],
+        [Validators.required],
       ],
       fax: [this.customer.contactMedium?.fax, Validators.required],
     });
@@ -61,8 +61,9 @@ export class AddContactMediumComponent implements OnInit {
 
   saveCustomer() {
     this.saveContactMediumToStore();
-    this.customersService.add(this.customer).subscribe({
+    this.customersService.add({...this.customer,...this.contactForm.value}).subscribe({
       next: (data) => {
+        
         this.router.navigateByUrl(`dashboard/customers/customer-info/${data.id}`);
       },
       error: (err) => {
