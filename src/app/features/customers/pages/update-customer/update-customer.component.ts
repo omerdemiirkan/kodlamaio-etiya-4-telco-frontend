@@ -17,7 +17,7 @@ export class UpdateCustomerComponent implements OnInit {
   customer!: Customer;
   isShow: Boolean = false;
   today: Date = new Date();
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -27,6 +27,7 @@ export class UpdateCustomerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     this.getCustomerById();
   }
 
@@ -88,31 +89,33 @@ export class UpdateCustomerComponent implements OnInit {
         this.router.navigateByUrl(
           `/dashboard/customers/customer-info/${customer.id}`
         );
+        this.messageService.add({
+          detail: 'Sucsessfully updated',
+          severity: 'success',
+          summary: 'Update',
+          key: 'etiya-custom',
+        });
       });
   }
 
   checkInvalid() {
     if (this.updateCustomerForm.invalid) {
       this.isShow = true;
-      return;
-    }
-    if (this.today.getFullYear()) {
       this.messageService.add({
-        detail: 'Please enter a valid date of birth',
-        severity: 'danger',
+        severity: 'error',
         summary: 'Error',
+        detail: 'Enter required fields',
         key: 'etiya-custom',
       });
       return;
     }
+ 
     if (
       this.updateCustomerForm.value.nationalityId ===
       this.customer.nationalityId
-    ) {
+    )
       this.updateCustomer();
-    } else {
-      this.checkTcNum(this.updateCustomerForm.value.nationalityId);
-    }
+    else this.checkTcNum(this.updateCustomerForm.value.nationalityId);
   }
   checkTcNum(id: number) {
     this.customerService.getList().subscribe((response) => {
@@ -121,9 +124,7 @@ export class UpdateCustomerComponent implements OnInit {
       });
       if (matchCustomer) {
         this.messageService.add({
-          detail: 'Error created',
-          severity: 'danger',
-          summary: 'Error',
+          detail: 'A customer is already exist with this Nationality ID',
           key: 'etiya-custom',
         });
       } else this.updateCustomer();

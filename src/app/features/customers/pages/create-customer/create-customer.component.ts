@@ -1,10 +1,6 @@
-import {  Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Customer } from '../../models/customer';
 import { CustomersService } from '../../services/customer/customers.service';
 import { Router } from '@angular/router';
@@ -61,10 +57,9 @@ export class CreateCustomerComponent implements OnInit {
       if (matchCustomer) {
         this.messageService.add({
           detail: 'This user already exist',
-          severity: 'info',
+          severity: 'warn',
           summary: 'Warning',
-          key: 'etiya-custom',
-          sticky: true,
+          key: 'okey',
         });
       } else {
         this.customerService.setDemographicInfoToStore(this.profileForm.value);
@@ -107,5 +102,4 @@ export class CreateCustomerComponent implements OnInit {
     event.preventDefault();
     return false;
   }
-
 }

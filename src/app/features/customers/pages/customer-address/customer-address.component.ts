@@ -27,9 +27,9 @@ export class CustomerAddressComponent implements OnInit {
   ngOnInit(): void {
     this.getCustomerById();
     this.messageService.clearObserver.subscribe((data) => {
-      if (data == 'reject') {
+      if (data == 'r') {
         this.messageService.clear();
-      } else if (data == 'confirm') {
+      } else if (data == 'c') {
         this.messageService.clear();
         this.remove();
       }
@@ -71,7 +71,6 @@ export class CustomerAddressComponent implements OnInit {
     this.addressToDelete = address;
     this.messageService.add({
       key: 'c',
-      sticky: true,
       severity: 'warn',
       detail: 'Are you sure you want to delete?',
     });
@@ -79,8 +78,9 @@ export class CustomerAddressComponent implements OnInit {
 
   remove() {
     this.customerService
-      .removeAddress(this.addressToDelete, this.customer)
+      .removeAddress(this.customer,this.addressToDelete)
       .subscribe((data) => {
+        
         this.getCustomerById();
       });
   }

@@ -260,16 +260,19 @@ export class CustomersService {
   }
 
   removeAddress(
-    addressToDelete: Address,
-    customer: Customer
+    customer: Customer,
+    deleteToAddress: Address
   ): Observable<Customer> {
+    let newAddresses: any = [];
+    if (customer.addresses) {
+      newAddresses = customer.addresses.filter(
+        (c) => c.id != deleteToAddress.id
+      );
+    }
     const newCustomer: Customer = {
       ...customer,
+      addresses: [...(newAddresses as Address[])],
     };
-    const newAddress = customer.addresses?.filter(
-      (address) => address.id != addressToDelete.id
-    );
-    newCustomer.addresses = newAddress;
 
     return this.httpClient.put<Customer>(
       `${this.apiControllerUrl}/${customer.id}`,
