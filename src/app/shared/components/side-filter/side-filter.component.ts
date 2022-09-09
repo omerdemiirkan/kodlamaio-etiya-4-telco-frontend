@@ -21,6 +21,7 @@ export class SideFilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.createSearchForm();
+    
   }
 
   createSearchForm(): void {
@@ -28,11 +29,12 @@ export class SideFilterComponent implements OnInit {
       nationalityId: [''],
       customerId: [''],
       accountNumber: [''],
-      gsmNumber: [''],
+      gsmNumber: ['0'],
       firstName: [''],
       lastName: [''],
       orderNumber: [''],
     });
+    
   }
 
   search() {

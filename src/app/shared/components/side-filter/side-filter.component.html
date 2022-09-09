@@ -54,10 +54,9 @@
         etiyaInput="dark"
         formControlName="gsmNumber"
 
-       mask="(000) 000-0000"
         maxlength="11"
         #gsmNumber
-        ngModel
+       
         (ngModelChange)="onChange($event, gsmNumber)"
         max="9999999999"
         min="1000000000"
@@ -109,7 +108,7 @@
         nationalityId.value.length === 0 &&
         customerId.value.length === 0 &&
         accountNumber.value.length === 0 &&
-        gsmNumber.value.length === 0 &&
+        gsmNumber.value.length === 1 &&
         firstName.value.length === 0 &&
         lastName.value.length === 0 &&
         orderNumber.value.length === 0
@@ -126,7 +125,7 @@
         nationalityId.value.length === 0 &&
         customerId.value.length === 0 &&
         accountNumber.value.length === 0 &&
-        gsmNumber.value.length === 0 &&
+        gsmNumber.value.length === 1 &&
         firstName.value.length === 0 &&
         lastName.value.length === 0 &&
         orderNumber.value.length === 0

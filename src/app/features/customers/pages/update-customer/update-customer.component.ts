@@ -41,7 +41,7 @@ export class UpdateCustomerComponent implements OnInit {
         this.customer.firstName,
         [Validators.maxLength(50), Validators.required],
       ],
-      middleName: [this.customer.middleName, [Validators.required]],
+      middleName: [this.customer.middleName, ],
       lastName: [
         this.customer.lastName,
         [Validators.maxLength(50), Validators.required],
