@@ -197,171 +197,6 @@
               ]
             }
           ]
-        },
-        {
-          "accountName": "asda",
-          "accountDescription": "asdad",
-          "addresses": [],
-          "id": 1606,
-          "accountNumber": "1054223168",
-          "status": "active"
-        },
-        {
-          "accountName": "x",
-          "accountDescription": "xx",
-          "addresses": [],
-          "id": 74042,
-          "accountNumber": "1030824214",
-          "status": "active"
-        },
-        {
-          "accountName": "ömerr",
-          "accountDescription": "adadadada",
-          "addresses": [
-            {
-              "id": 106,
-              "city": {
-                "id": 6,
-                "name": "San Diego"
-              },
-              "street": "sddad",
-              "flatNumber": "asdad",
-              "description": "ömerrrr",
-              "isMain": true
-            }
-          ],
-          "id": 86125,
-          "accountNumber": "1076969250",
-          "status": "active"
-        },
-        {
-          "accountName": "agagaga",
-          "accountDescription": "aga",
-          "addresses": [
-            {
-              "id": 398,
-              "city": {
-                "id": 3,
-                "name": "Chicago"
-              },
-              "street": "agagaa",
-              "flatNumber": "agaga",
-              "description": "gagagag",
-              "isMain": false
-            },
-            {
-              "id": 195,
-              "city": {
-                "id": 2,
-                "name": "Los Angeles"
-              },
-              "street": "gaga",
-              "flatNumber": "gagaga",
-              "description": "gagaga",
-              "isMain": true
-            },
-            {
-              "id": 881,
-              "city": {
-                "id": 2,
-                "name": "Los Angeles"
-              },
-              "street": "wwww",
-              "flatNumber": "www",
-              "description": "wwww",
-              "isMain": false
-            }
-          ],
-          "id": 549,
-          "accountNumber": "1052467285",
-          "status": "active"
-        },
-        {
-          "accountName": "sssssssss",
-          "accountDescription": "ssssssssssssssssssssss",
-          "addresses": [],
-          "id": 81013,
-          "accountNumber": "1042383158",
-          "status": "active"
-        },
-        {
-          "accountName": "4242",
-          "accountDescription": "4242",
-          "addresses": [
-            {
-              "id": 367,
-              "city": {
-                "id": 2,
-                "name": "Los Angeles"
-              },
-              "street": "24242",
-              "flatNumber": "42424",
-              "description": "2424",
-              "isMain": false
-            }
-          ],
-          "id": 60018,
-          "accountNumber": "1061304208",
-          "status": "active"
-        },
-        {
-          "accountName": "fdgdgd",
-          "accountDescription": "gdgdgdgdgd",
-          "addresses": [
-            {
-              "id": 106,
-              "city": {
-                "id": 2,
-                "name": "Los Angeles"
-              },
-              "street": "dfsfs",
-              "flatNumber": "sdfsfsf",
-              "description": "sfs",
-              "isMain": false
-            }
-          ],
-          "id": 44724,
-          "accountNumber": "1086132915",
-          "status": "active"
-        },
-        {
-          "accountName": "sdfsfsfs",
-          "accountDescription": "sdfsfsfs",
-          "addresses": [
-            {
-              "id": 843,
-              "city": {
-                "id": 1,
-                "name": "New York"
-              },
-              "street": "sdf",
-              "flatNumber": "sdfs",
-              "description": "sdfs",
-              "isMain": false
-            },
-            {
-              "city": {
-                "id": 4,
-                "name": "Houston"
-              },
-              "street": "Oak Valley",
-              "flatNumber": 55,
-              "description": "68 Hudson Street",
-              "id": 2,
-              "isMain": true
-            }
-          ],
-          "id": 36649,
-          "accountNumber": "1016349852",
-          "status": "active"
-        },
-        {
-          "accountName": "cvbcbcvbcbcbcbcbc",
-          "accountDescription": "bcbcbcbcbcbcbc",
-          "addresses": [],
-          "id": 25322,
-          "accountNumber": "1059797159",
-          "status": "active"
         }
       ]
     },
@@ -607,40 +442,6 @@
               ]
             }
           ]
-        },
-        {
-          "accountName": "sssss",
-          "accountDescription": "ssssssss",
-          "addresses": [
-            {
-              "id": 154,
-              "city": {
-                "id": 2,
-                "name": "Los Angeles"
-              },
-              "street": "sss",
-              "flatNumber": "ssss",
-              "description": "sss",
-              "isMain": false
-            }
-          ],
-          "id": 89955
-        },
-        {
-          "accountName": "gggg",
-          "accountDescription": "ggggggggggggggg",
-          "addresses": [],
-          "id": 14640,
-          "accountNumber": "1026987924",
-          "status": "active"
-        },
-        {
-          "accountName": "bvn",
-          "accountDescription": "vn",
-          "addresses": [],
-          "id": 96917,
-          "accountNumber": "1052271012",
-          "status": "active"
         }
       ]
     },
@@ -675,8 +476,8 @@
         "fax": "266-952-9086"
       },
       "billingAccounts": []
-    }
-    ,{
+    },
+    {
       "id": 4,
       "customerId": 4,
       "firstName": "Brew",
