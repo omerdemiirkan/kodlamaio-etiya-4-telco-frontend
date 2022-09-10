@@ -79,28 +79,35 @@
                 <div class="form-group">
                   <label class="col-5" for="birthDate">Birth Date:</label>
                   <input
-                  class="col-7"
-                  type="date"
-                  etiyaInput="dark"
-                  formControlName="birthDate"
-                  [max]="today | date: 'yyyy-MM-dd'"
-                  (blur)="onDateChange($event)"
-                  [ngClass]="{
-                    'invalid-input':
-                      isShow &&
-                      updateCustomerForm.controls['birthDate'].errors
-                  }"
-                />
-               
-                <small
-                  *ngIf=" isShow &&
-                  updateCustomerForm.controls['birthDate'].errors"
-                  class="p-error block ng-invalid ng-dirty"
-                  style="color: red; margin-left: 220px; margin-top: -20px"
-                >
-                  Please enter a valid date of birth
-                </small>
-             
+                    class="col-7"
+                    type="date"
+                    etiyaInput="dark"
+                    formControlName="birthDate"
+                    [max]="today | date: 'yyyy-MM-dd'"
+                    (blur)="onDateChange($event)"
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow &&
+                        updateCustomerForm.controls['birthDate'].errors
+                    }"
+                  />
+
+                  <small
+                    *ngIf="
+                      isShow && updateCustomerForm.controls['birthDate'].errors
+                    "
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red; margin-left: 220px; margin-top: -20px"
+                  >
+                    Please enter a valid date of birth
+                  </small>
+                  <small
+                    *ngIf="under18"
+                    class="p-error block ng-invalid ng-dirty"
+                    style="color: red; margin-left: 220px; margin-top: -20px"
+                  >
+                    The customer cannot be under the age of 18.
+                  </small>
                 </div>
               </div>
               <div class="col-6">
@@ -160,7 +167,6 @@
                     formControlName="nationalityId"
                     onKeyPress="if(this.value.length==11) return false;"
                     (keypress)="isNumber($event)"
-                    
                     onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     [ngClass]="{
                       'invalid-input':
