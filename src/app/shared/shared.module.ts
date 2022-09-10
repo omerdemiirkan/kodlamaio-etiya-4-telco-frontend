@@ -37,6 +37,7 @@ import { sharedReducers } from './store/shared.reducers';
 import { ValidationDialogPopupComponent } from './components/validation-dialog-popup/validation-dialog-popup.component';
 
 import {DialogModule} from 'primeng/dialog';
+import { OfferPopupComponent } from './components/offer-popup/offer-popup/offer-popup.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import {DialogModule} from 'primeng/dialog';
     TableScrollComponent,
     TableAccordionHeaderComponent,
     ValidationDialogPopupComponent,
+    OfferPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -104,6 +106,7 @@ import {DialogModule} from 'primeng/dialog';
     TableScrollComponent,
     TableAccordionHeaderComponent,
     ValidationDialogPopupComponent,
+    OfferPopupComponent
   ],
   providers: [MessageService],
 })
