@@ -56,17 +56,18 @@ export class CustomersService {
         }
         if (searchCustomer.accountNumber) {
           filteredCustomers = filteredCustomers.filter((item) =>
-            item.billingAccounts!.find(
-              (ba) => ba.accountNumber == searchCustomer.accountNumber
+            item.billingAccounts!.find((ba) =>
+              ba.accountNumber.includes(searchCustomer.accountNumber)
             )
           );
         }
 
         if (searchCustomer.gsmNumber) {
-          filteredCustomers = filteredCustomers.filter(
-            (item) =>
-               item.contactMedium!.mobilePhone.substr(1,14).split(' ').join('').includes(searchCustomer.gsmNumber)
-              
+          console.log(searchCustomer.gsmNumber);
+          filteredCustomers = filteredCustomers.filter((item) =>
+            item
+              .contactMedium!.mobilePhone.toString()
+              .includes(searchCustomer.gsmNumber.toString())
           );
         }
 
