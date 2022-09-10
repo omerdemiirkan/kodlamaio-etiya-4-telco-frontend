@@ -287,4 +287,49 @@ export class CustomersService {
     );
   }
 
+  removeBillingAccount(
+    billingAccountToDelete: BillingAccount,
+    customer: Customer
+  ): Observable<Customer> {
+    const newCustomer: Customer = {
+      ...customer,
+    };
+    const newBillingAccount = customer.billingAccounts?.filter(
+      (bill) => bill.id != billingAccountToDelete.id
+    );
+    newCustomer.billingAccounts = newBillingAccount;
+
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      newCustomer
+    );
+  }
+
+  updateBillingAccount(
+    billingAccountToUpdate: BillingAccount,
+    customer: Customer
+  ): Observable<Customer> {
+    console.log(billingAccountToUpdate.id);
+    const newCustomer: Customer = {
+      ...customer,
+    };
+    const newBillingAccount = customer.billingAccounts?.findIndex(
+      (billing) => billing.id === billingAccountToUpdate.id
+    ) as number;
+    if (newCustomer.billingAccounts) {
+      newCustomer.billingAccounts![newBillingAccount] = billingAccountToUpdate;
+    }
+
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      newCustomer
+    );
+  }
+
+
+
+
+
 }
+
+

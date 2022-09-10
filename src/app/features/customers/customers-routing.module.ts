@@ -17,6 +17,7 @@ import { CustomerContactMediumComponent } from './pages/customer-contact-medium/
 import { OfferSelectionComponent } from './pages/offer-selection/offer-selection.component';
 import { ConfigurationProductComponent } from './pages/configuration-product/configuration-product.component';
 import { AddCustomerAddressComponent } from './pages/add-customer-address/add-customer-address.component';
+import { CustomerBillingAccountUpdateComponent } from './pages/customer-billing-account-update/customer-billing-account-update/customer-billing-account-update.component';
 
 const routes: Routes = [
   // dashboard/customers/:id/address/update/:addressId
@@ -33,6 +34,8 @@ const routes: Routes = [
   { path: 'update-customer/:id', component: UpdateCustomerComponent },
   { path: 'customer-address/:id', component: CustomerAddressComponent },
   { path: 'customer-bill/:id', component: CustomerBillingAccountComponent },
+
+  { path: ':id/customer-bill/update/:billingId', component: CustomerBillingAccountUpdateComponent },
   {
     path: 'customer-contact-form/:id',
     component: UpdateCustContactMediumComponent,
