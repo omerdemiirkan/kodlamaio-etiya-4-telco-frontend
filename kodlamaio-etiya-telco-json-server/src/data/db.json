@@ -6,7 +6,7 @@
       "firstName": "Prudi",
       "middleName": "Meta",
       "lastName": "Gronw",
-      "birthDate": "4/15/1998",
+      "birthDate": "2006-11-10",
       "gender": "Female",
       "nationalityId": 48776304564,
       "role": "cooperative",
@@ -371,7 +371,7 @@
       "firstName": "Nappie",
       "middleName": "Far",
       "lastName": "Bonnet",
-      "birthDate": "1962-05-23",
+      "birthDate": "2000-12-12",
       "gender": "Male",
       "nationalityId": 68951141024,
       "role": "individual",
@@ -645,6 +645,38 @@
       ]
     },
     {
+      "id": 3,
+      "customerId": 3,
+      "firstName": "Codee",
+      "middleName": "Lena",
+      "lastName": "Gartan",
+      "birthDate": "9/29/1997",
+      "gender": "Female",
+      "nationalityId": 67712315360,
+      "role": "individual",
+      "motherName": "Halie",
+      "fatherName": "Martin",
+      "addresses": [
+        {
+          "id": 1,
+          "city": {
+            "id": 9,
+            "name": "Seattle"
+          },
+          "street": "Waxwing",
+          "flatNumber": 16,
+          "description": "4 Golden Leaf Place"
+        }
+      ],
+      "contactMedium": {
+        "email": "mgartan2@blogger.com",
+        "homePhone": "928 361 8566",
+        "mobilePhone": "+54 409 421 3507",
+        "fax": "266-952-9086"
+      },
+      "billingAccounts": []
+    }
+    ,{
       "id": 4,
       "customerId": 4,
       "firstName": "Brew",
