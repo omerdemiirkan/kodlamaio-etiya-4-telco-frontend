@@ -77,12 +77,14 @@ export class CustomerAddressComponent implements OnInit {
 
   remove() {
     this.customerService
-      .removeAddress(this.customer,this.addressToDelete)
+      .removeAddress(this.customer,this.addressToDelete,)
       .subscribe((data) => {
         
         this.getCustomerById();
       });
   }
+
+  
   handleConfigInput(event: any) {
     this.customer.addresses = this.customer.addresses?.map((adr) => {
       const newAddress = { ...adr, isMain: false };
