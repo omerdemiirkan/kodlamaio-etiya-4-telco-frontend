@@ -28,7 +28,6 @@
                     etiyaInput="dark"
                     class="e-contact-input"
                     formControlName="email"
-                    
                     maxlength="100"
                     [ngClass]="{
                       'invalid-input':
@@ -51,7 +50,6 @@
                     formControlName="homePhone"
                     (keypress)="isNumber($event)"
                     maxlength="10"
-                    
                     onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                   />
                 </div>
@@ -68,12 +66,12 @@
                   <input
                     type="text"
                     etiyaInput="dark"
+                    #mobilePhone
+                    (ngModelChange)="onChange($event, mobilePhone)"
                     class="e-contact-input"
                     formControlName="mobilePhone"
-                    placeholder="05xx xxx xxxx"
                     (keypress)="isNumber($event)"
-                    maxlength="10"
-                    
+                    maxlength="11"
                     onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     [ngClass]="{
                       'invalid-input':
@@ -90,14 +88,19 @@
                 </div>
                 <div class="col-12 col-lg-8 e-contact-col-center">
                   <input
+                    #fax
+                    (ngModelChange)="onChange($event, fax)"
                     type="text"
                     etiyaInput="dark"
                     class="e-contact-input"
                     formControlName="fax"
                     (keypress)="isNumber($event)"
-                    maxlength="10"
+                    maxlength="11"
                     onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
-                  
+                    [ngClass]="{
+                      'invalid-input':
+                        isShow && contactForm.controls['fax'].errors
+                    }"
                   />
                 </div>
               </div>
@@ -107,7 +110,8 @@
             *ngIf="
               isShow &&
               ((isShow && contactForm.controls['mobilePhone'].errors) ||
-                (isShow && contactForm.controls['email'].errors))
+                (isShow && contactForm.controls['email'].errors)) ||
+                ((isShow && contactForm.controls['fax'].errors)) 
             "
             id="lastName-help"
             class="p-error block ng-invalid ng-dirty"

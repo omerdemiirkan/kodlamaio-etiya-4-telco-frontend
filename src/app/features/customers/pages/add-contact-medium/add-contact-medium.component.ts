@@ -13,7 +13,9 @@ import { CustomersService } from '../../services/customer/customers.service';
 export class AddContactMediumComponent implements OnInit {
   contactForm!: FormGroup;
   customer!: Customer;
-  isShow:Boolean=false
+  isShow: Boolean = false;
+
+  public fixedNumber!: string;
 
   constructor(
     private customersService: CustomersService,
@@ -30,13 +32,16 @@ export class AddContactMediumComponent implements OnInit {
   }
   createFormContactMedium() {
     this.contactForm = this.formBuilder.group({
-      email: [this.customer.contactMedium?.email, [Validators.email,Validators.required]],
-      homePhone: [this.customer.contactMedium?.homePhone, Validators.required],
+      email: [
+        this.customer.contactMedium?.email,
+        [Validators.email, Validators.required],
+      ],
+      homePhone: [this.customer.contactMedium?.homePhone],
       mobilePhone: [
-        this.customer.contactMedium?.mobilePhone,
+        this.customer.contactMedium?.mobilePhone || '0',
         [Validators.required],
       ],
-      fax: [this.customer.contactMedium?.fax, Validators.required],
+      fax: [this.customer.contactMedium?.fax || '0', Validators.required],
     });
   }
 
@@ -51,29 +56,31 @@ export class AddContactMediumComponent implements OnInit {
 
   Save() {
     if (this.contactForm.valid) {
-      this.isShow = false
-      this.saveCustomer()
-    }
-    else{
-      this.isShow = true
+      this.isShow = false;
+      this.saveCustomer();
+    } else {
+      this.isShow = true;
     }
   }
 
   saveCustomer() {
     this.saveContactMediumToStore();
-    this.customersService.add({...this.customer,...this.contactForm.value}).subscribe({
-      next: (data) => {
-        
-        this.router.navigateByUrl(`dashboard/customers/customer-info/${data.id}`);
-      },
-      error: (err) => {
-        this.messageService.add({
-          detail: 'Error created',
-          severity: 'danger',
-          summary: 'Error',
-        });
-      },
-    });
+    this.customersService
+      .add({ ...this.customer, ...this.contactForm.value })
+      .subscribe({
+        next: (data) => {
+          this.router.navigateByUrl(
+            `dashboard/customers/customer-info/${data.id}`
+          );
+        },
+        error: (err) => {
+          this.messageService.add({
+            detail: 'Error created',
+            severity: 'danger',
+            summary: 'Error',
+          });
+        },
+      });
   }
   isNumber(event: any): boolean {
     console.log(event);
@@ -85,6 +92,8 @@ export class AddContactMediumComponent implements OnInit {
     return false;
   }
 
-
-
+  public onChange(value: string, inputElem: HTMLInputElement) {
+    this.fixedNumber = value === '' ? '0' : value;
+    inputElem.value = this.fixedNumber;
+  }
 }
