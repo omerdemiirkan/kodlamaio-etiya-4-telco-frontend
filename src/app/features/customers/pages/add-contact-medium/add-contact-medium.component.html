@@ -71,7 +71,7 @@
                     class="e-contact-input"
                     formControlName="mobilePhone"
                     (keypress)="isNumber($event)"
-                    maxlength="11"
+                    maxlength="10"
                     onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     [ngClass]="{
                       'invalid-input':
@@ -95,7 +95,8 @@
                     class="e-contact-input"
                     formControlName="fax"
                     (keypress)="isNumber($event)"
-                    maxlength="11"
+                    maxlength="10"
+                   
                     onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
                     [ngClass]="{
                       'invalid-input':
@@ -117,7 +118,7 @@
             class="p-error block ng-invalid ng-dirty"
             style="color: red; margin-left: 380px; margin-top: 5px"
           >
-            Required field can not be left blank
+          this field cannot be left blank
           </small>
           <div class="row mt-2 e-contact-center">
             <div class="col-2">

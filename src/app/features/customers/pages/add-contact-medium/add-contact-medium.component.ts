@@ -36,12 +36,12 @@ export class AddContactMediumComponent implements OnInit {
         this.customer.contactMedium?.email,
         [Validators.email, Validators.required],
       ],
-      homePhone: [this.customer.contactMedium?.homePhone],
+      homePhone: [this.customer.contactMedium?.homePhone] ,
       mobilePhone: [
-        this.customer.contactMedium?.mobilePhone || '0',
-        [Validators.required],
+        this.customer.contactMedium?.mobilePhone || '5',
+        [Validators.pattern('^[0-9]{10}$'),Validators.required],
       ],
-      fax: [this.customer.contactMedium?.fax || '0', Validators.required],
+      fax: [this.customer.contactMedium?.fax || '5', [Validators.pattern('^[0-9]{10}$'),Validators.required]],
     });
   }
 
@@ -93,7 +93,7 @@ export class AddContactMediumComponent implements OnInit {
   }
 
   public onChange(value: string, inputElem: HTMLInputElement) {
-    this.fixedNumber = value === '' ? '0' : value;
+    this.fixedNumber = value === '' ? '5' : value;
     inputElem.value = this.fixedNumber;
   }
 }

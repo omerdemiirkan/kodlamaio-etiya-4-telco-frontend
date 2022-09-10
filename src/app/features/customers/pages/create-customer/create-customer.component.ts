@@ -5,6 +5,7 @@ import { Customer } from '../../models/customer';
 import { CustomersService } from '../../services/customer/customers.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { formatDate } from '@angular/common';
 
 @Component({
   templateUrl: './create-customer.component.html',
@@ -15,7 +16,10 @@ export class CreateCustomerComponent implements OnInit {
   createCustomerModel$!: Observable<Customer>;
   customer!: Customer;
   isShow: boolean = false;
-  maxDate = '2004-08-08';
+  under18: Boolean = false;
+  futureDate: Boolean = false;
+
+  today: Date = new Date();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,11 +38,19 @@ export class CreateCustomerComponent implements OnInit {
   }
 
   createFormAddCustomer() {
+
+ 
+    let bDate = new Date();
+    if (this.customer.birthDate) {
+      bDate = new Date(this.customer.birthDate);
+    }
+
+
     this.profileForm = this.formBuilder.group({
       firstName: [this.customer.firstName, Validators.required],
       middleName: [this.customer.middleName],
       lastName: [this.customer.lastName, Validators.required],
-      birthDate: [this.customer.birthDate, Validators.required],
+      birthDate: [this.customer.birthDate, Validators.required,],
       gender: [this.customer.gender ?? '', Validators.required],
       fatherName: [this.customer.fatherName],
       motherName: [this.customer.motherName],
@@ -67,15 +79,23 @@ export class CreateCustomerComponent implements OnInit {
       }
     });
   }
-
   goNextPage() {
     if (this.profileForm.valid) {
       this.isShow = false;
       this.getCustomers(this.profileForm.value.nationalityId);
     } else {
       this.isShow = true;
+      let date = new Date(this.profileForm.get('birthDate')?.value);
+      let age = this.today.getFullYear() - date.getFullYear();
+      if (age < 18) {
+        this.under18 = true;
+        return;
+      } else {
+        this.under18 = false;
+      }
     }
   }
+  
   isValid(event: any): boolean {
     console.log(event);
     const pattern = /[0-9]/;
@@ -85,21 +105,16 @@ export class CreateCustomerComponent implements OnInit {
     event.preventDefault();
     return false;
   }
-  isBirthdayValid(event: any): boolean {
-    const now = new Date();
-    const inputDate = new Date(event.target.value);
-    if (
-      inputDate.getTime() -
-        new Date(
-          now.getFullYear() - 18,
-          now.getMonth(),
-          now.getDay()
-        ).getTime() >=
-      0
-    )
-      return true;
-    console.log('18 den büyük');
-    event.preventDefault();
-    return false;
+
+
+
+  onDateChange(event: any) {
+    let date = new Date(event.target.value);
+    if (date.getFullYear() > this.today.getFullYear()) {
+      this.profileForm.get('birthDate')?.setValue('');
+      this.futureDate = true;
+    } else {
+      this.futureDate = false;
+    }
   }
 }

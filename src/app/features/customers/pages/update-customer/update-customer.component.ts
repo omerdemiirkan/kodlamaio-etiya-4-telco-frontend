@@ -17,6 +17,7 @@ export class UpdateCustomerComponent implements OnInit {
   customer!: Customer;
   isShow: Boolean = false;
   today: Date = new Date();
+   under18: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,11 +32,14 @@ export class UpdateCustomerComponent implements OnInit {
   }
 
   createFormUpdateCustomer() {
-    console.log(this.customer.birthDate);
+
+
     let bDate = new Date();
     if (this.customer.birthDate) {
       bDate = new Date(this.customer.birthDate);
     }
+
+
     this.updateCustomerForm = this.formBuilder.group({
       firstName: [
         this.customer.firstName,
@@ -100,22 +104,27 @@ export class UpdateCustomerComponent implements OnInit {
   checkInvalid() {
     if (this.updateCustomerForm.invalid) {
       this.isShow = true;
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Enter required fields',
-        key: 'etiya-custom',
-      });
       return;
     }
-
+    let date = new Date(this.updateCustomerForm.get('birthDate')?.value);
+    let age = this.today.getFullYear() - date.getFullYear();
+    if (age < 18) {
+      this.under18 = true;
+      return;
+    } else {
+      this.under18 = false;
+    }
     if (
       this.updateCustomerForm.value.nationalityId ===
       this.customer.nationalityId
-    )
+    ) {
       this.updateCustomer();
-    else this.checkTcNum(this.updateCustomerForm.value.nationalityId);
+    } else {
+      this.checkTcNum(this.updateCustomerForm.value.nationalityId);
+    }
   }
+
+  
   checkTcNum(id: number) {
     this.customerService.getList().subscribe((response) => {
       let matchCustomer = response.find((item) => {
@@ -155,4 +164,5 @@ export class UpdateCustomerComponent implements OnInit {
       this.updateCustomerForm.get('birthDate')?.setValue('');
     }
   }
+
 }

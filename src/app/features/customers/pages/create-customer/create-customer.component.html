@@ -14,7 +14,7 @@
         <app-info-title [infoTitle]="'Demographic Info'"></app-info-title>
       </div>
       <div class="d-flex justify-content-center">
-        <form [formGroup]="profileForm" class="w-75">
+        <form *ngIf="profileForm" [formGroup]="profileForm" class="w-75">
           <div class="row">
             <div class="col-12 col-lg-6">
               <div class="row e-customer-input">
@@ -30,7 +30,7 @@
                     type="text"
                     etiyaInput="dark"
                     formControlName="firstName"
-                    maxlength="50"
+                    maxlength="100"
                     [ngClass]="{
                       'invalid-input':
                         isShow && profileForm.controls['firstName'].errors
@@ -43,7 +43,7 @@
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 400px; margin-top: -20px"
                 >
-                This field cannot left blank!
+                  This field cannot left blank!
                 </small>
               </div>
             </div>
@@ -93,7 +93,7 @@
                   class="p-error block ng-invalid ng-dirty"
                   style="color: red; margin-left: 400px; margin-top: -20px"
                 >
-                This field cannot left blank!
+                  This field cannot left blank!
                 </small>
               </div>
             </div>
@@ -109,10 +109,10 @@
                 >
                   <input
                     type="date"
-                    (change)="isBirthdayValid($event)"
                     etiyaInput="dark"
                     formControlName="birthDate"
-                    [max]="maxDate"
+                    [max]="today | date: 'yyyy-MM-dd'"
+                    (blur)="onDateChange($event)"
                     [ngClass]="{
                       'invalid-input':
                         isShow && profileForm.controls['birthDate'].errors
@@ -120,13 +120,19 @@
                   />
                 </div>
                 <small
-                *ngIf="isShow && profileForm.controls['birthDate'].errors"
-                id="lastName-help"
-                class="p-error block ng-invalid ng-dirty"
-                style="color: red; margin-left: 400px; margin-top: -20px"
-              >
-              This field cannot left blank!
-              </small>
+                  *ngIf="futureDate"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 400px; margin-top: -20px"
+                >
+                  Please enter a valid date of birth
+                </small>
+                <small
+                  *ngIf="under18"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 400px; margin-top: -20px"
+                >
+                  The customer cannot be under the age of 18.
+                </small>
               </div>
             </div>
             <div class="col-12 col-lg-6 d=flex justify-content-start mb-5">
@@ -222,7 +228,6 @@
                     formControlName="nationalityId"
                     (keypress)="isValid($event)"
                     onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
-     
                     onKeyPress="if(this.value.length==11) return false;"
                     [ngClass]="{
                       'invalid-input':
@@ -231,13 +236,13 @@
                   />
                 </div>
                 <small
-                *ngIf="isShow && profileForm.controls['nationalityId'].errors"
-                id="lastName-help"
-                class="p-error block ng-invalid ng-dirty"
-                style="color: red; margin-left: 400px; margin-top: -20px"
-              >
-              Please enter the information in accordance with the format!
-              </small>
+                  *ngIf="isShow && profileForm.controls['nationalityId'].errors"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="color: red; margin-left: 400px; margin-top: -20px"
+                >
+                  Please enter the information in accordance with the format!
+                </small>
               </div>
             </div>
           </div>
