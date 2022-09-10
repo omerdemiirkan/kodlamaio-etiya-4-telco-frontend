@@ -21,7 +21,6 @@ export class SideFilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.createSearchForm();
-    
   }
 
   createSearchForm(): void {
@@ -29,12 +28,11 @@ export class SideFilterComponent implements OnInit {
       nationalityId: [''],
       customerId: [''],
       accountNumber: [''],
-      gsmNumber: ['0'],
+      gsmNumber: ['5'],
       firstName: [''],
       lastName: [''],
       orderNumber: [''],
     });
-    
   }
 
   search() {
@@ -53,7 +51,7 @@ export class SideFilterComponent implements OnInit {
   }
 
   public onChange(value: string, inputElem: HTMLInputElement) {
-    this.fixedNumber = value === '' ? '0' : value;
+    this.fixedNumber = value === '' ? '5' : value;
     inputElem.value = this.fixedNumber;
   }
 
