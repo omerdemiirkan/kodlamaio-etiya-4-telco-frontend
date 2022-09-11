@@ -82,11 +82,27 @@ export class CreateCustomerComponent implements OnInit {
   goNextPage() {
     if (this.profileForm.valid) {
       this.isShow = false;
+      let date = new Date(this.profileForm.get('birthDate')?.value);
+      let age = this.today.getFullYear() - date.getFullYear();
+      console.log(age);
+     
+        this.under18 = false;
+        this.futureDate = false;
+      if (age < 18) {
+        this.under18 = true;
+        this.futureDate = false;
+        
+        return;
+      } else {
+        this.under18 = false;
+      }
+
       this.getCustomers(this.profileForm.value.nationalityId);
     } else {
       this.isShow = true;
       let date = new Date(this.profileForm.get('birthDate')?.value);
       let age = this.today.getFullYear() - date.getFullYear();
+      console.log(age);
       if (age < 18) {
         this.under18 = true;
         return;
@@ -95,7 +111,6 @@ export class CreateCustomerComponent implements OnInit {
       }
     }
   }
-  
   isValid(event: any): boolean {
     console.log(event);
     const pattern = /[0-9]/;
@@ -113,8 +128,10 @@ export class CreateCustomerComponent implements OnInit {
     if (date.getFullYear() > this.today.getFullYear()) {
       this.profileForm.get('birthDate')?.setValue('');
       this.futureDate = true;
+      this.isShow = true;
     } else {
       this.futureDate = false;
+      this.isShow = false;
     }
   }
 }
