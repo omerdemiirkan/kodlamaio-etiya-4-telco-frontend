@@ -33,4 +33,9 @@ export class CustomerBillingAccountDetailComponent implements OnInit {
         });
     }
   }
+  onBillingAccDelete(accToDelete: BillingAccount) {
+    this.billingAccountList = this.billingAccountList.filter(
+      (c) => c.id != accToDelete.id
+    );
+  }
 }

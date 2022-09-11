@@ -67,7 +67,7 @@
                       <td>{{ offer.type.id }}</td>
                       <td></td>
                       <td>
-                        <img src="../assets/img/delete_accordion.png" /><img
+                        <img src="../assets/img/delete_accordion.png" (click)="removeProductPopup(product)"  /><img
                           src="../assets/img/eye_accordion.png"
                           (click)="productDetail(billingAccount, offer)"
                         />

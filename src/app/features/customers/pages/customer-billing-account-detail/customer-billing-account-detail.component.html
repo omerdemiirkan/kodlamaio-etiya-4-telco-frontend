@@ -32,17 +32,21 @@
       <ng-template ngFor let-bill [ngForOf]="billingAccountList">
         <app-table-accordion
           [billingAccount]="bill"
+          (onBillingAccountDelete)="onBillingAccDelete($event)"
           [customerId]="selectedCustomerId"
         ></app-table-accordion>
       </ng-template>
       <div
-        style="margin-top: 100px;"
+        style="margin-top: 100px"
         class="d-flex row justify-content-center align align-items-center"
         *ngIf="billingAccountList?.length == 0"
       >
-        <div  class=" message ">You do not have a billing account, would you want to add one ?</div>
-      <br> <br><br><br><br><br><br><br>
-        <button 
+        <div class="message">
+          You do not have a billing account, would you want to add one ?
+        </div>
+        <br />
+        <br /><br /><br /><br /><br /><br /><br />
+        <button
           class="ml-5 col-6 newButton"
           etiyaButton="new-address"
           [routerLink]="
@@ -50,8 +54,7 @@
           "
           routerLinkActive="active"
         >
-          Create New
-          Account
+          Create New Account
         </button>
       </div>
     </div>

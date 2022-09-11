@@ -1,4 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { BillingAccount } from 'src/app/features/customers/models/billingAccount';
 import { Customer } from 'src/app/features/customers/models/customer';
 import { MessageService } from 'primeng/api';
@@ -6,7 +13,6 @@ import { CustomersService } from 'src/app/features/customers/services/customer/c
 import { Router } from '@angular/router';
 import { Offer } from 'src/app/features/offers/models/offer';
 import { Product } from 'src/app/features/customers/models/product';
-
 @Component({
   selector: 'app-table-accordion',
   templateUrl: './table-accordion.component.html',
@@ -15,6 +21,7 @@ import { Product } from 'src/app/features/customers/models/product';
 export class TableAccordionComponent implements OnInit {
   @Input() billingAccount!: BillingAccount;
   @Input() customerId!: number;
+  @Output() onBillingAccountDelete = new EventEmitter<BillingAccount>();
   customer!: Customer;
   billingAccountToDelete!: BillingAccount;
 
@@ -24,22 +31,35 @@ export class TableAccordionComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private customerService: CustomersService,
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef
   ) {}
 
-  
   ngOnInit(): void {
     this.getCustomerById();
-    
+    this.messageService.messageObserver.subscribe((data: any) => {
+      if (data.data && data.data.acc) {
+        this.billingAccountToDelete = data.data.acc;
+      }
+    });
     this.messageService.clearObserver.subscribe((data) => {
       if (data == 'r') {
         this.messageService.clear();
       } else if (data == 'c') {
+        if (this.productToDelete) {
+          this.removeProduct();
+          // this.billingAccount.orders.forEach((order) => {
+          //   order.offers?.forEach((offer) => {
+          //     offer.products = offer.products.filter(
+          //       (p) => p.id != this.productToDelete.id
+          //     );
+          //   });
+          // });
+        }
         if (
           this.billingAccountToDelete?.orders &&
           this.billingAccountToDelete?.orders?.length > 0
-        ) 
-        {
+        ) {
           this.messageService.clear();
           this.messageService.add({
             key: 'offer',
@@ -51,6 +71,7 @@ export class TableAccordionComponent implements OnInit {
             this.messageService.clear();
           }, 3000);
         } else {
+          this.remove();
           this.messageService.clear();
           this.messageService.add({
             key: 'offer',
@@ -60,9 +81,7 @@ export class TableAccordionComponent implements OnInit {
           setTimeout(() => {
             this.messageService.clear();
           }, 3000);
-          this.remove();
         }
-        
       }
     });
   }
@@ -114,6 +133,7 @@ export class TableAccordionComponent implements OnInit {
         .getCustomerById(this.customerId)
         .subscribe((data) => {
           this.customer = data;
+          this.cd.detectChanges();
         });
       // this.getProductList();
     }
@@ -127,6 +147,7 @@ export class TableAccordionComponent implements OnInit {
       key: 'c',
       sticky: true,
       severity: 'warn',
+      data: { acc: this.billingAccountToDelete },
       detail: 'Are you sure you want to delete?',
     });
   }
@@ -135,9 +156,8 @@ export class TableAccordionComponent implements OnInit {
     this.customerService
       .removeBillingAccount(this.billingAccountToDelete, this.customer)
       .subscribe((data) => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
+        this.onBillingAccountDelete.emit(this.billingAccountToDelete);
+        this.getCustomerById();
       });
   }
 
@@ -167,9 +187,6 @@ export class TableAccordionComponent implements OnInit {
   }
 
   removeProduct() {
-    console.log(this.customer);
-    console.log(this.product);
-
     this.customerService
       .removeProduct(this.customer, this.productToDelete)
       .subscribe((data) => {
