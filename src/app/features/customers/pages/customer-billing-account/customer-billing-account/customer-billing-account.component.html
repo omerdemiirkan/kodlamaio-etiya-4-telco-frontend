@@ -213,10 +213,8 @@
             <div class="col-12 col-lg-6 d-flex justify-content-lg-start">
               <button
                 etiyaButton="clear"
-                [routerLink]="
-                  '/dashboard/customers/customer-billing-account-detail/' +
-                  selectedCustomerId
-                "
+               
+                (click)="goToPreviousPage()"
               >
                 CANCEL
               </button>
@@ -339,7 +337,7 @@
           </div>
           <div class="mt-2 d-flex justify-content: space-around">
             <div class="">
-              <button etiyaButton="clear">CANCEL</button>
+              <button etiyaButton="clear" [routerLink]="'/dashboard/customers/customer-bill/'+selectedCustomerId">CANCEL</button>
             </div>
             <div class="ml-auto">
               <button

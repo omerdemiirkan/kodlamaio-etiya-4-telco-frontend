@@ -29,6 +29,11 @@ export class CustomerBillingAccountUpdateComponent implements OnInit {
 
   billingAdress: Address[] = [];
 
+  addresses!: Address;
+  mainAddres!: number;
+
+  billingAccounts!: BillingAccount  ;
+
   constructor(
     private formBuilder: FormBuilder,
     private cityService: CityService,
@@ -150,5 +155,40 @@ export class CustomerBillingAccountUpdateComponent implements OnInit {
       '/dashboard/customers/customer-billing-account-detail/' +
         this.selectedCustomerId
     );
+  }
+
+  isMainAdd() {
+    return this.addresses == undefined ? true : false;
+  }
+
+  getMainAddress() {
+    this.customerService
+      .getCustomerById(this.selectedCustomerId)
+      .subscribe((data) => {
+        data.addresses?.forEach((adr) => {
+          if (adr.isMain == true) this.addresses = adr;
+        });
+      });
+  }
+
+  handleConfigInput(event: any) {
+    this.mainAddres = event.target.value;
+    //this.add(event.target.value)
+    this.billingAccounts.addresses = this.billingAccounts?.addresses?.map(
+      (adr) => {
+        const newAddress = { ...adr, isMain: false };
+        return newAddress;
+      }
+    );
+  
+    let findAddressBill = this.billingAccounts.addresses.find((adr) => {
+      return adr.id == event.target.value;
+    });
+  
+    findAddressBill!.isMain = true;
+    this.customerService.update(this.customer).subscribe((data) => {
+      console.log(data);
+      this.getCustomerById();
+    });
   }
 }

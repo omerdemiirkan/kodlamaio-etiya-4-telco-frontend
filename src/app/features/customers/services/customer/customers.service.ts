@@ -17,6 +17,7 @@ import { Address } from '../../models/address';
 import { ContactMedium } from '../../models/contactMedium';
 import { BillingAccount } from '../../models/billingAccount';
 import { SharedStoreState } from 'src/app/shared/store/shared.reducers';
+import { Product } from '../../models/product';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +48,7 @@ export class CustomersService {
             item
               .nationalityId!.toString()
               .includes(searchCustomer.nationalityId.toString())
-          );;
+          );
         }
         if (searchCustomer.customerId) {
           filteredCustomers = filteredCustomers.filter(
@@ -112,7 +113,7 @@ export class CustomersService {
   addAddressInfoToStore(props: Address, customers: Customer) {
     const newAddress: Address = {
       ...props,
-      id: Math.floor(Math.random()*100000),
+      id: Math.floor(Math.random() * 100000),
     };
     this.store.dispatch(addAddressInfo(newAddress));
   }
@@ -201,7 +202,7 @@ export class CustomersService {
       ...customer,
       addresses: [
         ...(customer.addresses || []),
-        { ...address, id: Math.floor(Math.random()*100000) },
+        { ...address, id: Math.floor(Math.random() * 100000) },
       ],
     };
     return this.httpClient.put<Customer>(
@@ -250,16 +251,10 @@ export class CustomersService {
       ...customer,
       billingAccounts: [
         ...(customer.billingAccounts || []),
-        {
-          ...billingAccount,
-          id: Math.floor(Math.random() * 100000),
-          accountNumber: Math.floor(
-            1000000000 + Math.random() * 90000000
-          ).toString(),
-          status: 'active',
-        },
+        { ...billingAccount, id: Math.floor(Math.random() * 1000) },
       ],
     };
+    console.log(newCustomer);
     return this.httpClient.put<Customer>(
       `${this.apiControllerUrl}/${customer.id}`,
       newCustomer
@@ -287,6 +282,42 @@ export class CustomersService {
     );
   }
 
+  removeProduct(
+    customer: Customer,
+    deleteToProduct: Product
+  ): Observable<Customer> {
+    let newProduct: any = [];
+
+    if(newProduct){
+         newProduct = customer?.billingAccounts?.forEach((bill) => {
+      bill.orders?.forEach((order) => {
+        order?.offers?.forEach((offer) => {
+          if (offer.products) {
+            offer?.products?.filter((product) => {
+              product?.id != deleteToProduct.id;
+              
+            });
+          }
+        });
+      });
+    });
+    }
+ 
+    console.log('newproduct' + newProduct);
+
+    const newCustomer: Customer = {
+      ...customer,
+      ...newProduct,
+    };
+
+    console.log(newCustomer);
+
+    return this.httpClient.put<Customer>(
+      `${this.apiControllerUrl}/${customer.id}`,
+      newCustomer
+    );
+  }
+
   removeBillingAccount(
     billingAccountToDelete: BillingAccount,
     customer: Customer
@@ -295,7 +326,7 @@ export class CustomersService {
       ...customer,
     };
     const newBillingAccount = customer.billingAccounts?.filter(
-      (bill) => bill.id != billingAccountToDelete.id
+      (bill) => (bill.id != billingAccountToDelete?.id)
     );
     newCustomer.billingAccounts = newBillingAccount;
 
@@ -325,11 +356,4 @@ export class CustomersService {
       newCustomer
     );
   }
-
-
-
-
-
 }
-
-
