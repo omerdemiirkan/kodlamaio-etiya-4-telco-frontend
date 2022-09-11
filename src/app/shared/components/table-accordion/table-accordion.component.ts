@@ -88,39 +88,54 @@ export class TableAccordionComponent implements OnInit {
 
   productDetail(billingAccount: BillingAccount, offer: Offer) {
     if (offer.type.typeName == 'campaign') {
-      let cnAddress = billingAccount.addresses.toString();
-      let cnProdOfferId = offer.id.toString();
-      let cnProdOfferName = offer.name;
-      let cnCampaignId = offer.type.id.toString();
+      let campaignProdOfferId = offer.id.toString();
+      let campaignProdOfferName = offer.name;
+      let campaignId = offer.type.id.toString();
+      let campaignAddressDetail: any = [];
+      billingAccount.addresses.forEach(
+        (data) => (campaignAddressDetail = data)
+      );
       this.messageService.add({
-        key: 'okey',
+        key: 'product-detail',
         sticky: true,
         severity: 'warn',
         detail:
-          'ProdOfferId:' +
-          cnProdOfferId +
-          '                ' +
-          'ProdOfferName:' +
-          cnProdOfferName +
-          '   ' +
-          'CampaignId' +
-          cnCampaignId,
+          'Prod Offer Id: ' +
+          campaignProdOfferId +
+          '       ' +
+          'Prod Offer Name: ' +
+          campaignProdOfferName +
+          '       ' +
+          'Campaign Id: ' +
+          campaignId +
+          '       ' +
+          campaignAddressDetail.city.name +
+          '       ' +
+          campaignAddressDetail.description +
+          '       ',
       });
     } else if (offer.type.typeName == 'catalog') {
-      let cgAddress = billingAccount.addresses;
-      let cgProdOfferId = offer.id;
-      let cgProdOfferName = offer.name;
+      let catalogProdOfferId = offer.id;
+      let catalogProdOfferName = offer.name;
+      let catalogAddressDetail: any = [];
+      billingAccount.addresses.forEach((data) => (catalogAddressDetail = data));
       this.messageService.add({
-        key: 'okey',
+        key: 'product-detail',
         sticky: true,
         severity: 'warn',
         detail:
-          'ProdOfferId:' +
-          cgProdOfferId +
-          '                ' +
-          'ProdOfferName:' +
-          cgProdOfferName +
-          '   ',
+          'ProdOfferId: ' +
+          catalogProdOfferId +
+          '         ' +
+          'ProdOfferName: ' +
+          catalogProdOfferName +
+          '          ' +
+          'Address Name: ' +
+          catalogAddressDetail.city.name +
+          '          ' +
+          'Address Description: ' +
+          catalogAddressDetail.description +
+          '          ',
       });
     }
   }

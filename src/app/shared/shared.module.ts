@@ -38,6 +38,7 @@ import { ValidationDialogPopupComponent } from './components/validation-dialog-p
 
 import {DialogModule} from 'primeng/dialog';
 import { OfferPopupComponent } from './components/offer-popup/offer-popup/offer-popup.component';
+import { OfferDetailPopUpComponent } from './components/offer-detail-pop-up/offer-detail-pop-up/offer-detail-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { OfferPopupComponent } from './components/offer-popup/offer-popup/offer-
     TableAccordionHeaderComponent,
     ValidationDialogPopupComponent,
     OfferPopupComponent,
+    OfferDetailPopUpComponent,
   ],
   imports: [
     CommonModule,
@@ -106,7 +108,9 @@ import { OfferPopupComponent } from './components/offer-popup/offer-popup/offer-
     TableScrollComponent,
     TableAccordionHeaderComponent,
     ValidationDialogPopupComponent,
-    OfferPopupComponent
+    OfferPopupComponent,
+    
+    OfferDetailPopUpComponent,
   ],
   providers: [MessageService],
 })
