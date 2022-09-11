@@ -28,10 +28,10 @@
                 </div>
                 <div class="row">
                   <div class="col-12 col-xl-6">
-                    <div class="row m-2 e-offer-selection-center">
+                    <div class="row p-2 e-offer-selection-center">
                       <div class="col-12 col-lg-5 p-0">
                         <label class="e-offer-label" for="prodOfferId"
-                          >Prod Offer ID
+                          >Prod Offer ID:
                         </label>
                       </div>
                       <div class="col-12 col-lg-7 p-0">
@@ -51,10 +51,10 @@
                     </div>
                   </div>
                   <div class="col-12 col-xl-6">
-                    <div class="row e-offer-selection-center">
+                    <div class="row p-2 e-offer-selection-center">
                       <div class="col-12 col-lg-5 p-0">
                         <label class="e-offer-label" for="prodOfferName"
-                          >Prod Offer Name
+                          >Prod Offer Name:
                         </label>
                       </div>
                       <div class="col-12 col-lg-7 p-0">
@@ -82,19 +82,20 @@
               <div class="e-offer-table">
                 <app-table-scroll class="e-table">
                   <thead>
-                    <tr class="table-title">
-                      <th>Prod Offer ID</th>
-                      <th>Prod Offer Name</th>
+                    <tr class="table-title row">
+                      <th class="col-3">Prod Offer ID</th>
+                      <th class="col-9">Prod Offer Name</th>
                     </tr>
                   </thead>
                   <tbody class="table-body">
                     <tr
+                      class="row"
                       *ngFor="let catalogOffer of catalogOffersList"
                       (click)="addBasket(catalogOffer)"
                       [ngClass]="{ selected: isSelected(catalogOffer) }"
                     >
-                      <td>{{ catalogOffer.id }}</td>
-                      <td>
+                      <td class="col-3">{{ catalogOffer.id }}</td>
+                      <td class="col-9">
                         <span *ngIf="isSelected(catalogOffer)"
                           >{{ getOfferCount(catalogOffer) }}x</span
                         >
@@ -127,12 +128,11 @@
                       </div>
                       <div class="col-12 col-lg-7 p-0">
                         <input
-                        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
-                        
-                        onKeyPress="if(this.value.length==6) return false;"
-                        max="999999"
-                        min="100000"
-                        (keypress)="isNumber($event)"
+                          onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+                          onKeyPress="if(this.value.length==6) return false;"
+                          max="999999"
+                          min="100000"
+                          (keypress)="isNumber($event)"
                           type="text"
                           class="offer-input"
                           etiyaInput="dark"
@@ -173,21 +173,22 @@
               <div class="e-offer-table">
                 <app-table-scroll class="e-table">
                   <thead>
-                    <tr class="table-title">
-                      <th>Campaign ID</th>
-                      <th>Prod Offer ID</th>
-                      <th>Prod Offer Name</th>
+                    <tr class="table-title row">
+                      <th class="col-2">Campaign ID</th>
+                      <th class="col-3">Prod Offer ID</th>
+                      <th class="col-7">Prod Offer Name</th>
                     </tr>
                   </thead>
                   <tbody class="table-body">
                     <tr
+                      class="row"
                       *ngFor="let campaignOffer of campaignOffersList"
                       (click)="addBasket(campaignOffer)"
                       [ngClass]="{ selected: isSelected(campaignOffer) }"
                     >
-                      <td>{{ campaignOffer.type.id }}</td>
-                      <td>{{ campaignOffer.id }}</td>
-                      <td>
+                      <td class="col-2">{{ campaignOffer.type.id }}</td>
+                      <td class="col-3">{{ campaignOffer.id }}</td>
+                      <td class="col-7">
                         <span *ngIf="isSelected(campaignOffer)"
                           >{{ getOfferCount(campaignOffer) }}x</span
                         >
