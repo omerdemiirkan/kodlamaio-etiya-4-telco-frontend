@@ -39,6 +39,12 @@
                           type="text"
                           class="offer-input"
                           etiyaInput="dark"
+                          onKeyPress="if(this.value.length==6) return false;"
+                          #nationalityId
+                          onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+                          max="999999"
+                          min="100000"
+                          (keypress)="isNumber($event)"
                           formControlName="prodOfferId"
                         />
                       </div>
@@ -57,6 +63,7 @@
                           class="offer-input"
                           etiyaInput="dark"
                           formControlName="prodOfferName"
+                          maxlength="100"
                         />
                       </div>
                     </div>
@@ -120,6 +127,12 @@
                       </div>
                       <div class="col-12 col-lg-7 p-0">
                         <input
+                        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+                        
+                        onKeyPress="if(this.value.length==6) return false;"
+                        max="999999"
+                        min="100000"
+                        (keypress)="isNumber($event)"
                           type="text"
                           class="offer-input"
                           etiyaInput="dark"
@@ -138,6 +151,7 @@
                       <div class="col-12 col-lg-7 p-0">
                         <input
                           type="text"
+                          maxlength="100"
                           class="offer-input"
                           etiyaInput="dark"
                           formControlName="campaignName"

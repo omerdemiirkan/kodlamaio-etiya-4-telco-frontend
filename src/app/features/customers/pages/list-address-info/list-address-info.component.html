@@ -65,9 +65,9 @@
                     </div>
                   </th>
 
-                  <td>{{ address.street }}</td>
-                  <td>{{ address.flatNumber }}</td>
-                  <td>{{ address.description }}</td>
+                  <td style="word-break: break-all;">{{ address.street }}</td>
+                  <td style="word-break: break-all;">{{ address.flatNumber }}</td>
+                  <td style="word-break: break-all;">{{ address.description }}</td>
                   <td class="d-flex justify-content-center">
                     <button
                       (click)="selectAddressId(address.id)"

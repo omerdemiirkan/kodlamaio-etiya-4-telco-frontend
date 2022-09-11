@@ -22,8 +22,8 @@
         <label class="e-frame-label">Order Items:</label>
       </div>
       <div class="col-8">
-        <div class="order-items" *ngFor="let offer of order.offers">
-          <p>
+        <div class="order-items">
+          <p *ngFor="let offer of order.offers">
             <span>{{ offer.id }}</span
             >{{ offer.name }}
           </p>
@@ -35,7 +35,11 @@
         <label class="e-frame-label">Service Address:</label>
       </div>
       <div class="col-8">
-        <label class="e-frame-label">{{ order.address?.description }}</label>
+        <label class="e-frame-label"
+          >{{ order.address?.city?.name }},{{ order.address?.street }},{{
+            order.address?.flatNumber
+          }}, {{ order.address?.description }}</label
+        >
       </div>
     </div>
     <div class="row">
@@ -62,11 +66,7 @@
           </button>
         </div>
         <div class="col-6 d-flex justify-content-lg-end">
-          <button
-            [etiyaButton]="'clear'"
-            routerLink="/dashboard"
-            (click)="submitOrder()"
-          >
+          <button [etiyaButton]="'clear'" (click)="submitOrder()">
             Submit
           </button>
         </div>

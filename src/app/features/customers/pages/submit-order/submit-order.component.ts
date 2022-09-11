@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from 'src/app/features/orders/models/order';
 import { OrderService } from 'src/app/features/orders/services/order/order.service';
 import { Customer } from '../../models/customer';
@@ -18,7 +18,8 @@ export class SubmitOrderComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private orderService: OrderService,
-    private customerService: CustomersService
+    private customerService: CustomersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +72,9 @@ export class SubmitOrderComponent implements OnInit {
   submitOrder() {
     this.orderService
       .addOrder(this.order, this.customer, this.billingAccountId)
-      ?.subscribe();
+      ?.subscribe(() => {
+        this.router.navigateByUrl('/dashboard/customers/customer-dashboard');
+      });
   }
 }
+

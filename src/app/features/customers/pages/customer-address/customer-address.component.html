@@ -45,7 +45,7 @@
           </tr>
           <ng-template #customerAddressList>
             <tr *ngFor="let adr of customerAddress">
-              <th>
+              <th  style="word-break: break-all;">
                 <div class="row">
                   <div class="col-2 d-flex justify-content-end">
                     <input
@@ -70,10 +70,10 @@
                   </div>
                 </div>
               </th>
-              <td>{{ adr.street }}</td>
-              <td>{{ adr.flatNumber }}</td>
-              <td>{{ adr.description }}</td>
-              <td class="d-flex justify-content-center">
+              <td  style="word-break: break-all;">{{ adr.street }}</td>
+              <td  style="word-break: break-all;">{{ adr.flatNumber }}</td>
+              <td  style="word-break: break-all;">{{ adr.description }}</td>
+              <td style="word-break: break-all;" class="d-flex justify-content-center">
                 <button
                   (click)="selectAddressId(adr.id)"
                   etiyaButton="edit"
