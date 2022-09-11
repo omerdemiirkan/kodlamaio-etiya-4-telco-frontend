@@ -254,31 +254,33 @@
             <div class="row w-100">
               <table class="e-table table table-bordered table-hidden">
                 <thead>
-                  <tr class="table-title">
-                    <th>City</th>
-                    <th>Street Name</th>
-                    <th>House/Flat Number</th>
-                    <th>Address Description</th>
+                  <tr class="table-title row">
+                    <th class="col-4">City</th>
+                    <th class="col-3">Street Name</th>
+                    <th class="col-1">House/Flat Number</th>
+                    <th class="col-4">Address Description</th>
                   </tr>
                 </thead>
                 <tbody class="table-body">
                   <tr
+                    class="row"
                     *ngIf="
                       !billingAdress || billingAdress.length == 0;
                       else customerAddressList
                     "
                   >
-                    <th>Null</th>
-                    <td>Null</td>
-                    <td>Null</td>
-                    <td>Null</td>
+                    <th class="col-3">Null</th>
+                    <th class="col-3">Null</th>
+                    <th class="col-2">Null</th>
+                    <th class="col-4">Null</th>
                   </tr>
                   <ng-template #customerAddressList>
                     <tr
+                      class="row"
                       [ngClass]="{ selection: isSelected(billingadr) }"
                       *ngFor="let billingadr of billingAdress"
                     >
-                      <th style="display: flex">
+                      <th  style="display: flex">
                         <input
                           *ngIf="billingAdress.length == 1"
                           [checked]="billingAdress.length == 1"
@@ -300,9 +302,9 @@
                           {{ billingadr.city.name }}
                         </div>
                       </th>
-                      <td>{{ billingadr.street }}</td>
-                      <td>{{ billingadr.flatNumber }}</td>
-                      <td>{{ billingadr.description }}</td>
+                      <td class="col-3">{{ billingadr.street }}</td>
+                      <td class="col-2">{{ billingadr.flatNumber }}</td>
+                      <td class="col-4">{{ billingadr.description }}</td>
                     </tr>
                   </ng-template>
                 </tbody>
