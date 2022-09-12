@@ -69,17 +69,38 @@
   background: rgba(13, 43, 80, 0.75);
 }
 .table-hidden tr .selection {
-  background-color: #6188b8!important;
-  background: #6188b8!important;
+  background-color: #6188b8 !important;
+  background: #6188b8 !important;
 }
 
 .invalid-input {
-  border-color: red!important;
-  color: red !important;  
+  border-color: red !important;
+  color: red !important;
 }
 
-small{
-  font-weight: 200!important;
-  font-size: 25px!important;
-  color: red
+small {
+  font-weight: 200 !important;
+  font-size: 25px !important;
+  color: red;
+}
+.scroll-product {
+  height: 600px;
+  overflow-y: scroll;
+  border-color: #f58220;
+}
+
+.scroll-product::-webkit-scrollbar {
+  width: 18px;
+}
+
+.scroll-product::-webkit-scrollbar-track {
+  background: #1a4981;
+}
+
+.scroll-product::-webkit-scrollbar-thumb {
+  background: #f58220;
+}
+
+.scroll-product::-webkit-scrollbar-thumb:hover {
+  background: #f58220;
 }

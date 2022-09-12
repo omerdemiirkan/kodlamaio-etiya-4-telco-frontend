@@ -47,14 +47,16 @@ export class TableAccordionComponent implements OnInit {
         this.messageService.clear();
       } else if (data == 'c') {
         if (this.productToDelete) {
+          
+          this.billingAccount.orders.forEach((order) => {
+            order.offers?.forEach((offer) => {
+              offer.products = offer.products.filter(
+                (p) => p.id != this.productToDelete.id
+                
+              );
+            });
+          });
           this.removeProduct();
-          // this.billingAccount.orders.forEach((order) => {
-          //   order.offers?.forEach((offer) => {
-          //     offer.products = offer.products.filter(
-          //       (p) => p.id != this.productToDelete.id
-          //     );
-          //   });
-          // });
         }
         if (
           this.billingAccountToDelete?.orders &&
@@ -182,15 +184,15 @@ export class TableAccordionComponent implements OnInit {
     );
   }
 
-  // getProductList() {
-  //   this.billingAccount?.orders?.forEach((order) => {
-  //     order?.offers?.forEach((offer) => {
-  //       offer?.products?.forEach((product) => {
-  //         this.product = product;
-  //       });
-  //     });
-  //   });
-  // }
+  // // getProductList() {
+  // //   this.billingAccount?.orders?.forEach((order) => {
+  // //     order?.offers?.forEach((offer) => {
+  // //       offer?.products?.forEach((product) => {
+  // //         this.product = product;
+  // //       });
+  // //     });
+  // //   });
+  // // }
 
   removeProductPopup(product: Product) {
     this.productToDelete = product;
@@ -202,6 +204,7 @@ export class TableAccordionComponent implements OnInit {
   }
 
   removeProduct() {
+    console.log('prodcgsgsgs' + JSON.stringify(this.productToDelete));
     this.customerService
       .removeProduct(this.customer, this.productToDelete)
       .subscribe((data) => {
@@ -216,7 +219,5 @@ export class TableAccordionComponent implements OnInit {
         this.getCustomerById();
       });
 
-    console.log(this.customer);
-    console.log(this.product);
   }
 }

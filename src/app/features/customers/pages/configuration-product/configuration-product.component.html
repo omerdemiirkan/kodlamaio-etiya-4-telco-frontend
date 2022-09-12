@@ -10,7 +10,8 @@
   </div>
   <app-main-layout [layoutTitle]="'Configuration Product'">
     <div class="e-customer-content">
-      <ng-template ngFor let-offer [ngForOf]="basket">
+      <div class="scroll-product">
+          <ng-template ngFor let-offer [ngForOf]="basket">
         <ng-template ngFor let-product [ngForOf]="offer.products">
           <div *ngIf="isTypeProduct(product, 'adsl')" class="m-5">
             <div class="e-configuration-product-container">
@@ -244,6 +245,8 @@
           </div>
         </ng-template>
       </ng-template>
+      </div>
+    
 
       <div *ngIf="isShown == false">
         <div class="d-flex justify-content-center customer-title mb-5">

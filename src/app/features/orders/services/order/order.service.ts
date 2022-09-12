@@ -47,7 +47,7 @@ export class OrderService {
     };
     newCustomer.billingAccounts
       ?.find((account) => account.id == billingAccountId)
-      ?.orders.push({
+      ?.orders?.push({
         ...order,
         id: Math.floor(10000000 + Math.random() * 90000000),
       });
