@@ -5,6 +5,7 @@ import {
   addOfferToBasket,
   changeConfigOfProductInBasket,
   clearBasket,
+  removeBasket,
 } from './basket.actions';
 
 // Basket state'inin başlangıç değeri
@@ -42,5 +43,8 @@ export const basketReducer = createReducer(
         return newOffer;
       }),
     ];
+  }),
+  on(removeBasket, (state, action) => {
+    return [...state.filter((offer) => offer.id !== action.offer.id)];
   })
 );

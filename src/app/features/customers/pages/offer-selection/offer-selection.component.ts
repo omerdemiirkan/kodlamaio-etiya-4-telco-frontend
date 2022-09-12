@@ -14,8 +14,8 @@ import { OfferService } from 'src/app/features/offers/services/offer/offer.servi
   styleUrls: ['./offer-selection.component.css'],
 })
 export class OfferSelectionComponent implements OnInit {
-  catalogOffersList!: Offer[];
-  campaignOffersList!: Offer[];
+  catalogOffersList: Offer[] = [];
+  campaignOffersList: Offer[] = [];
   offerList!: Offer[];
   campaignList!: Campaign[];
   catalogList!: Catalog[];
@@ -23,6 +23,8 @@ export class OfferSelectionComponent implements OnInit {
   searchCatalogForm!: FormGroup;
   selectedCustomerId!: number;
   billingAccountId!: number;
+  selectedOffers: Offer[] = [];
+  itemsInBasket: boolean = false;
 
   constructor(
     private offerService: OfferService,
@@ -33,6 +35,9 @@ export class OfferSelectionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.offerService.basket$.subscribe((data) => {
+      this.itemsInBasket = data.length > 0;
+    });
     this.getParams();
     this.getOfferList();
     this.listenBasket();
@@ -60,14 +65,40 @@ export class OfferSelectionComponent implements OnInit {
       );
     });
   }
+
+  // getUnSelectedCampaignOffers(): Offer[] {
+  //   let newOfferList: Offer[] = [...this.campaignOffersList];
+  //   this.offerList
+  //     .filter((offer) => offer.type.typeName == 'campaign')
+  //     .forEach((selectedOffer) => {
+  //       newOfferList = newOfferList.filter(
+  //         (offer) => offer.id !== selectedOffer.id
+  //       );
+  //     });
+  //   return newOfferList;
+  // }
+  // getUnSelectedCatalogOffers(): Offer[] {
+  //   let newOfferList: Offer[] = [...this.catalogOffersList];
+  //   this.offerList
+  //     .filter((offer) => offer.type.typeName == 'catalog')
+  //     .forEach((selectedOffer) => {
+  //       newOfferList = newOfferList.filter(
+  //         (offer) => offer.id !== selectedOffer.id
+  //       );
+  //     });
+  //   return newOfferList;
+  // }
+
   addBasket(offer: Offer) {
-    if (this.offerList === undefined) this.offerList = [];
-    this.offerList.push(offer);
+    //this.offerList.push(offer);
+    this.selectedOffers.push(offer);
+    this.saveBasket(offer);
   }
-  saveBasket() {
-    this.offerList.forEach((offer) => {
-      this.offerService.addOfferToBasketStore(offer);
-    });
+  saveBasket(offer: Offer) {
+    this.offerService.addOfferToBasketStore(offer);
+    // this.offerList.forEach((offer) => {
+    //   this.offerService.addOfferToBasketStore(offer);
+    // });
   }
   isSelected(offer: Offer): boolean {
     if (this.offerList === undefined) return false;
@@ -78,7 +109,9 @@ export class OfferSelectionComponent implements OnInit {
   getOfferCount(offer: Offer): number {
     let count: number = 0;
     this.offerList.forEach((offerInList) => {
-      if (offerInList.id === offer.id) count++;
+      if (offerInList.id === offer.id) {
+        count++;
+      }
     });
     return count;
   }
@@ -86,7 +119,6 @@ export class OfferSelectionComponent implements OnInit {
     this.offerService.basket$.subscribe((basket) => {
       if (basket === undefined) return;
       this.offerList = [...basket];
-      console.log(basket);
     });
   }
 
@@ -104,7 +136,7 @@ export class OfferSelectionComponent implements OnInit {
 
   createSearchCampaignsForm() {
     this.searchCampaignForm = this.formBuilder.group({
-      selectedId: [''],
+      selectedId1: [''],
       campaignName: [''],
       campaignId: [''],
     });
@@ -135,7 +167,7 @@ export class OfferSelectionComponent implements OnInit {
   }
 
   isNumber(event: any): boolean {
-    console.log(event.target.value);
+    console.log(event);
     const pattern = /[0-9]/;
     const char = String.fromCharCode(event.which ? event.which : event.keyCode);
     if (pattern.test(char)) return true;

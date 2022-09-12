@@ -10,6 +10,7 @@ import {
   addOfferToBasket,
   changeConfigOfProductInBasket,
   clearBasket,
+  removeBasket,
 } from '../../../../shared/store/offers/basket/basket.actions';
 import { SharedStoreState } from 'src/app/shared/store/shared.reducers';
 
@@ -44,5 +45,8 @@ export class OfferService {
     this.store.dispatch(
       changeConfigOfProductInBasket({ offer, product, config })
     );
+  }
+  removeOfferInStore(offer: Offer) {
+    this.store.dispatch(removeBasket({ offer }));
   }
 }

@@ -147,3 +147,11 @@
   background-repeat: no-repeat !important;
   background-position: center !important;
 }
+
+.removebutton {
+  background-color: #f58220;
+  border-radius: 10px;
+  width: 25px;
+  height: 25px;
+  color: #ffffff;
+}

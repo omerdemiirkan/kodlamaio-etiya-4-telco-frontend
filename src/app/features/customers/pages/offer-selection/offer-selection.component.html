@@ -16,7 +16,11 @@
               <div class="offer-title mb-3">Catalog Selection</div>
               <form [formGroup]="searchCatalogForm">
                 <div class="e-dropdown">
-                  <select etiyaInput="dark" formControlName="selectedId">
+                  <select
+                    etiyaInput="dark"
+                    formControlName="selectedId"
+                    #selectedId
+                  >
                     <option selected value="">Select</option>
                     <option
                       *ngFor="let catalog of catalogList"
@@ -31,7 +35,7 @@
                     <div class="row p-2 e-offer-selection-center">
                       <div class="col-12 col-lg-5 p-0">
                         <label class="e-offer-label" for="prodOfferId"
-                          >Prod Offer ID:
+                          >Prod Offer ID
                         </label>
                       </div>
                       <div class="col-12 col-lg-7 p-0">
@@ -39,13 +43,9 @@
                           type="text"
                           class="offer-input"
                           etiyaInput="dark"
-                          onKeyPress="if(this.value.length==6) return false;"
-                          #nationalityId
-                          onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
-                          max="999999"
-                          min="100000"
-                          (keypress)="isNumber($event)"
                           formControlName="prodOfferId"
+                          (keypress)="isNumber($event)"
+                          #prodOfferId
                         />
                       </div>
                     </div>
@@ -54,7 +54,7 @@
                     <div class="row p-2 e-offer-selection-center">
                       <div class="col-12 col-lg-5 p-0">
                         <label class="e-offer-label" for="prodOfferName"
-                          >Prod Offer Name:
+                          >Prod Offer Name
                         </label>
                       </div>
                       <div class="col-12 col-lg-7 p-0">
@@ -62,8 +62,9 @@
                           type="text"
                           class="offer-input"
                           etiyaInput="dark"
+                          maxlength="50"
                           formControlName="prodOfferName"
-                          maxlength="100"
+                          #prodOfferName
                         />
                       </div>
                     </div>
@@ -104,6 +105,14 @@
                     </tr>
                   </tbody>
                 </app-table-scroll>
+                <small
+                  *ngIf="catalogOffersList?.length == 0"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="margin-left: 200px; margin-top: -15px"
+                >
+                  No products found in this catalog
+                </small>
               </div>
             </div>
 
@@ -111,16 +120,23 @@
               <div class="offer-title mb-3">Campaign Selection</div>
               <form [formGroup]="searchCampaignForm">
                 <div class="e-dropdown">
-                  <select etiyaInput="dark" formControlName="selectedId">
+                  <select
+                    etiyaInput="dark"
+                    formControlName="selectedId1"
+                    #selectedId1
+                  >
                     <option selected disabled hidden value="">Select</option>
-                    <option *ngFor="let campaign of campaignList">
+                    <option
+                      *ngFor="let campaign of campaignList"
+                      value="{{ campaign.id }}"
+                    >
                       {{ campaign.name }}
                     </option>
                   </select>
                 </div>
                 <div class="row">
                   <div class="col-12 col-xl-6">
-                    <div class="row m-2 e-offer-selection-center">
+                    <div class="row p-2 e-offer-selection-center">
                       <div class="col-12 col-lg-5 p-0">
                         <label class="e-offer-label" for="prodOfferId"
                           >Campaign ID
@@ -128,33 +144,31 @@
                       </div>
                       <div class="col-12 col-lg-7 p-0">
                         <input
-                          onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
-                          onKeyPress="if(this.value.length==6) return false;"
-                          max="999999"
-                          min="100000"
-                          (keypress)="isNumber($event)"
                           type="text"
                           class="offer-input"
                           etiyaInput="dark"
+                          (keypress)="isNumber($event)"
                           formControlName="campaignId"
+                          #campaignId
                         />
                       </div>
                     </div>
                   </div>
                   <div class="col-12 col-xl-6">
-                    <div class="row e-offer-selection-center">
+                    <div class="row p-2 e-offer-selection-center">
                       <div class="col-12 col-lg-5 p-0">
-                        <label class="e-offer-label" for="prodOfferName"
+                        <label class="e-offer-label" for="campaignName"
                           >Campaign Name
                         </label>
                       </div>
                       <div class="col-12 col-lg-7 p-0">
                         <input
                           type="text"
-                          maxlength="100"
                           class="offer-input"
                           etiyaInput="dark"
+                          maxlength="50"
                           formControlName="campaignName"
+                          #campaignName
                         />
                       </div>
                     </div>
@@ -182,7 +196,9 @@
                   <tbody class="table-body">
                     <tr
                       class="row"
-                      *ngFor="let campaignOffer of campaignOffersList"
+                      *ngFor="
+                        let campaignOffer of campaignOffersList
+                      "
                       (click)="addBasket(campaignOffer)"
                       [ngClass]="{ selected: isSelected(campaignOffer) }"
                     >
@@ -197,6 +213,14 @@
                     </tr>
                   </tbody>
                 </app-table-scroll>
+                <small
+                  *ngIf="campaignOffersList?.length == 0"
+                  id="lastName-help"
+                  class="p-error block ng-invalid ng-dirty"
+                  style="margin-left: 200px; margin-top: -15px"
+                >
+                  No products found in this campaign
+                </small>
               </div>
             </div>
           </app-tab-menu>
@@ -206,14 +230,21 @@
         </div>
       </div>
       <div class="row e-buttons">
-        <div class="col-8 d-flex justify-content-end align-items-center">
-          <button etiyaButton="accordion-body" (click)="saveBasket()">
-            Add Basket
-          </button>
-        </div>
-        <div class="col-4 d-flex justify-content-end align-items-center">
+        <div class="col-3 d-flex justify-content-start pl-3">
           <button
             etiyaButton="clear"
+            [routerLink]="
+              '/dashboard/customers/customer-billing-account-detail/' +
+              selectedCustomerId
+            "
+          >
+            PREVIOUS
+          </button>
+        </div>
+        <div class="col-9 d-flex justify-content-end pe-3">
+          <button
+            etiyaButton="clear"
+            [disabled]="!itemsInBasket"
             [routerLink]="
               '/dashboard/customers/' +
               selectedCustomerId +
