@@ -102,3 +102,7 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.p-toast-center {
+  background-color: red;
+}

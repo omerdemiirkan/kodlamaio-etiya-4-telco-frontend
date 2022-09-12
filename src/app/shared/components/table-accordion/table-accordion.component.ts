@@ -62,7 +62,11 @@ export class TableAccordionComponent implements OnInit {
           });
         } else if (
           this.billingAccountToDelete &&
-          this.billingAccountToDelete.orders &&
+          this.billingAccountToDelete.orders.map((c) =>
+            c.offers?.map((offer) => {
+              offer.products.length > 0;
+            })
+          ) ||
           this.billingAccountToDelete.orders.length > 0
         ) {
           this.messageService.add({
@@ -88,6 +92,8 @@ export class TableAccordionComponent implements OnInit {
       }
     });
   }
+
+  
   productDetail(billingAccount: BillingAccount, offer: Offer) {
     if (offer.type.typeName == 'campaign') {
       let campaignProdOfferId = offer.id.toString();
@@ -169,7 +175,7 @@ export class TableAccordionComponent implements OnInit {
           this.customer = data;
           this.cd.detectChanges();
         });
-      // this.getProductList();
+       this.getProductList();
     }
   }
 
@@ -201,15 +207,15 @@ export class TableAccordionComponent implements OnInit {
     );
   }
 
-  // // getProductList() {
-  // //   this.billingAccount?.orders?.forEach((order) => {
-  // //     order?.offers?.forEach((offer) => {
-  // //       offer?.products?.forEach((product) => {
-  // //         this.product = product;
-  // //       });
-  // //     });
-  // //   });
-  // // }
+  getProductList() {
+    this.billingAccount?.orders?.forEach((order) => {
+      order?.offers?.forEach((offer) => {
+        offer?.products?.forEach((product) => {
+          this.product = product;
+        });
+      });
+    });
+  }
 
   removeProductPopup(product: Product) {
     this.productToDelete = product;
