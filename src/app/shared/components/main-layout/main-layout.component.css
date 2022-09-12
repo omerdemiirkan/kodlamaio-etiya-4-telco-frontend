@@ -1,10 +1,11 @@
 .main-box {
   box-sizing: border-box;
-  height: 900px;
+  min-height: 700px;
   margin-left: 30px;
   margin-bottom: 40px;
   border: 2px solid #f58220;
   border-right: none !important;
+  
 }
 
 .e-layout-title {

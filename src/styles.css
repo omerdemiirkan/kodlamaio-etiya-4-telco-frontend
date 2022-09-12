@@ -8,7 +8,7 @@
 
 body {
   background-image: url('../src/assets/img/search_background.png');
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: 1520px 1610px;
   overflow-x: hidden;
 }
