@@ -37,10 +37,16 @@ export class SideFilterComponent implements OnInit {
 
   search() {
     let nationalityId = parseInt(this.searchForm.value.nationalityId);
-    const newSearchForm = {
+    let newSearchForm = {
       ...this.searchForm.value,
       nationalityId: nationalityId,
     };
+    if (this.searchForm.get('gsmNumber')?.value == '5') {
+      newSearchForm = {
+        ...newSearchForm,
+        gsmNumber: '',
+      };
+    }
     console.log(nationalityId);
     this.customersService.getListByFilter(newSearchForm).subscribe((data) => {
       this.filteredData.emit(data);
