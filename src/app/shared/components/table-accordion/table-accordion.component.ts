@@ -35,6 +35,7 @@ export class TableAccordionComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
+ 
   ngOnInit(): void {
     this.getCustomerById();
     this.messageService.messageObserver.subscribe((data: any) => {
@@ -42,52 +43,51 @@ export class TableAccordionComponent implements OnInit {
         this.billingAccountToDelete = data.data.acc;
       }
     });
+    this.messages();
+  }
+  messages() {
     this.messageService.clearObserver.subscribe((data) => {
       if (data == 'r') {
         this.messageService.clear();
       } else if (data == 'c') {
+        this.messageService.clear();
         if (this.productToDelete) {
-          
+          this.removeProduct();
           this.billingAccount.orders.forEach((order) => {
             order.offers?.forEach((offer) => {
               offer.products = offer.products.filter(
                 (p) => p.id != this.productToDelete.id
-                
               );
             });
           });
-          this.removeProduct();
-        }
-        if (
-          this.billingAccountToDelete?.orders &&
-          this.billingAccountToDelete?.orders?.length > 0
+        } else if (
+          this.billingAccountToDelete &&
+          this.billingAccountToDelete.orders &&
+          this.billingAccountToDelete.orders.length > 0
         ) {
-          this.messageService.clear();
           this.messageService.add({
             key: 'offer',
             severity: 'warn',
             detail:
-              'There is a product belonging to the account, this account cannot be deleted',
+              'The billing account that you want to delete has an active product(s). You can not delete it!',
           });
-          setTimeout(() => {
-            this.messageService.clear();
-          }, 3000);
-        } else {
+        } else if (
+          this.billingAccountToDelete &&
+          this.billingAccountToDelete.orders &&
+          this.billingAccountToDelete.orders.length == 0
+        ) {
           this.remove();
-          this.messageService.clear();
           this.messageService.add({
             key: 'offer',
             severity: 'warn',
             detail: 'Customer account deleted successfully',
           });
-          setTimeout(() => {
-            this.messageService.clear();
-          }, 3000);
+        } else {
+          console.log('No problem!...');
         }
       }
     });
   }
-
   productDetail(billingAccount: BillingAccount, offer: Offer) {
     if (offer.type.typeName == 'campaign') {
       let campaignProdOfferId = offer.id.toString();
@@ -101,22 +101,30 @@ export class TableAccordionComponent implements OnInit {
         key: 'product-detail',
         sticky: true,
         severity: 'warn',
-        detail:
-          'Prod Offer Id: ' +
-          campaignProdOfferId +
-          '       ' +
-          'Prod Offer Name: ' +
-          campaignProdOfferName +
-          '       ' +
-          'Campaign Id: ' +
-          campaignId +
-          '       ' +
-          campaignAddressDetail.city.name +
-          '       ' +
-          campaignAddressDetail.description +
-          '       ',
+        detail:`
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table" >
+                        <tr class="table-header">
+                            <th class="col-2">Product Offer ID</th>
+                            <th class="col-2">Product Offer Name</th>
+                            <th class="col-2">City</th>
+                            <th class="col-2">Address Detail</th>
+                        </tr>
+                        <tr  class="active">
+                            <td>${campaignProdOfferId}</td>
+                            <td>${campaignProdOfferName}</td>
+                            <td>${campaignAddressDetail.city.name}</td>
+                            <td>${campaignAddressDetail.description}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+      `,
       });
-    } else if (offer.type.typeName == 'catalog') {
+    }else if (offer.type.typeName == 'catalog') {
       let catalogProdOfferId = offer.id;
       let catalogProdOfferName = offer.name;
       let catalogAddressDetail: any = [];
@@ -125,19 +133,28 @@ export class TableAccordionComponent implements OnInit {
         key: 'product-detail',
         sticky: true,
         severity: 'warn',
-        detail:
-          'ProdOfferId: ' +
-          catalogProdOfferId +
-          '         ' +
-          'ProdOfferName: ' +
-          catalogProdOfferName +
-          '          ' +
-          'Address Name: ' +
-          catalogAddressDetail.city.name +
-          '          ' +
-          'Address Description: ' +
-          catalogAddressDetail.description +
-          '          ',
+        detail: `
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table" >
+                        <tr class="table-header">
+                            <th class="col-2">Product Offer ID</th>
+                            <th class="col-2">Product Offer Name</th>
+                            <th class="col-2">City</th>
+                            <th class="col-2">Address Detail</th>
+                        </tr>
+                        <tr  class="active">
+                            <td>${catalogProdOfferId}</td>
+                            <td>${catalogProdOfferName}</td>
+                            <td>${catalogAddressDetail.city.name}</td>
+                            <td>${catalogAddressDetail.description}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        `,
       });
     }
   }
@@ -204,20 +221,24 @@ export class TableAccordionComponent implements OnInit {
   }
 
   removeProduct() {
-    console.log('prodcgsgsgs' + JSON.stringify(this.productToDelete));
-    this.customerService
-      .removeProduct(this.customer, this.productToDelete)
-      .subscribe((data) => {
-        console.log(data);
-        this.messageService.add({
-          key: 'c',
-          sticky: true,
-          severity: 'warn',
-          detail: 'Are you sure you want to delete?',
+    let newBillingAccount: BillingAccount[] = [];
+    if (this.customer.billingAccounts)
+      newBillingAccount = this.customer.billingAccounts;
+    newBillingAccount.forEach((acc) => {
+      acc.orders.forEach((order) => {
+        order.offers?.forEach((off) => {
+          off.products = off.products.filter(
+            (p) => p.id != this.productToDelete.id
+          );
         });
-
-        this.getCustomerById();
       });
-
+    });
+    const newCustomer: Customer = {
+      ...this.customer,
+    };
+    newCustomer.billingAccounts = newBillingAccount;
+    this.customerService.removeProduct(newCustomer).subscribe((data) => {
+      this.getCustomerById();
+    });
   }
 }
