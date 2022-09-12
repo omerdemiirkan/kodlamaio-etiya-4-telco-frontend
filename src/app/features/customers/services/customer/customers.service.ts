@@ -282,39 +282,10 @@ export class CustomersService {
     );
   }
 
-  removeProduct(
-    customer: Customer,
-    deleteToProduct: Product
-  ): Observable<Customer> {
-    let newProduct: any = [];
-
-    if(newProduct){
-         newProduct = customer?.billingAccounts?.forEach((bill) => {
-      bill.orders?.forEach((order) => {
-        order?.offers?.forEach((offer) => {
-          if (offer.products) {
-            offer?.products?.filter((product) => {
-              product?.id != deleteToProduct.id;
-              
-            });
-          }
-        });
-      });
-    });
-    }
- 
-    console.log('newproduct' + newProduct);
-
-    const newCustomer: Customer = {
-      ...customer,
-      ...newProduct,
-    };
-
-    console.log(newCustomer);
-
+  removeProduct(customer: Customer): Observable<Customer> {
     return this.httpClient.put<Customer>(
       `${this.apiControllerUrl}/${customer.id}`,
-      newCustomer
+      customer
     );
   }
 
@@ -326,7 +297,7 @@ export class CustomersService {
       ...customer,
     };
     const newBillingAccount = customer.billingAccounts?.filter(
-      (bill) => (bill.id != billingAccountToDelete?.id)
+      (bill) => bill.id != billingAccountToDelete?.id
     );
     newCustomer.billingAccounts = newBillingAccount;
 

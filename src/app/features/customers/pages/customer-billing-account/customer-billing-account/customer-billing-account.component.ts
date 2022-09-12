@@ -127,6 +127,7 @@ add() {
     this.billingAccount.accountNumber = String(
       Math.floor(Math.random() * 1000000000)
     );
+    this.billingAccount.orders=[]
     console.log(this.billingAccount);
     this.customerService
       .addBillingAccount(this.billingAccount, this.customer)
