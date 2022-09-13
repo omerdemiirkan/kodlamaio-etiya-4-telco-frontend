@@ -18,6 +18,7 @@ import { ContactMedium } from '../../models/contactMedium';
 import { BillingAccount } from '../../models/billingAccount';
 import { SharedStoreState } from 'src/app/shared/store/shared.reducers';
 import { Product } from '../../models/product';
+import { Conditional } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root',
@@ -89,9 +90,10 @@ export class CustomersService {
         if (searchCustomer.orderNumber) {
           filteredCustomers = filteredCustomers.filter((item) =>
             item.billingAccounts!.find((ba) =>
-              ba.orders.find((o) => o.id == searchCustomer.orderNumber)
+              ba.orders?.find((o) => o.id == searchCustomer.orderNumber)
             )
           );
+          console.log(searchCustomer.orderNumber);
         }
         subject.next(filteredCustomers);
       },
