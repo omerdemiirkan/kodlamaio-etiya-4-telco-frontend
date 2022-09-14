@@ -2593,6 +2593,45 @@
           ]
         }
       ]
+    },
+    {
+      "customerId": 9999,
+      "firstName": "dd",
+      "middleName": null,
+      "lastName": "fdf",
+      "birthDate": "2000-12-12",
+      "gender": "Male",
+      "nationalityId": "11111111111",
+      "role": "individual",
+      "motherName": null,
+      "fatherName": null,
+      "addresses": [
+        {
+          "city": {
+            "id": 2,
+            "name": "Los Angeles"
+          },
+          "street": "111",
+          "flatNumber": "11",
+          "description": "11",
+          "id": 1,
+          "type": "[CustomerToAdd] Add Address Info"
+        }
+      ],
+      "contactMedium": {
+        "email": "omeremirkan12@gmail.com",
+        "homePhone": "5300303906",
+        "mobilePhone": "5555555555",
+        "fax": "5555555555",
+        "type": "[CustomerToAdd] Set ContactMedium Info"
+      },
+      "billingAccounts": [],
+      "type": "[CustomerToAdd] Set Demographic Info",
+      "email": "omeremirkan12@gmail.com",
+      "homePhone": "5300303906",
+      "mobilePhone": "5555555555",
+      "fax": "5555555555",
+      "id": 21
     }
   ],
   "offers": [
