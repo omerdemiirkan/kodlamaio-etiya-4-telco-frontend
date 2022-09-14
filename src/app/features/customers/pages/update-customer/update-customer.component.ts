@@ -17,7 +17,7 @@ export class UpdateCustomerComponent implements OnInit {
   customer!: Customer;
   isShow: Boolean = false;
   today: Date = new Date();
-   under18: Boolean = false;
+  under18: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,20 +32,17 @@ export class UpdateCustomerComponent implements OnInit {
   }
 
   createFormUpdateCustomer() {
-
-
     let bDate = new Date();
     if (this.customer.birthDate) {
       bDate = new Date(this.customer.birthDate);
     }
-
 
     this.updateCustomerForm = this.formBuilder.group({
       firstName: [
         this.customer.firstName,
         [Validators.maxLength(50), Validators.required],
       ],
-      middleName: [this.customer.middleName, ],
+      middleName: [this.customer.middleName],
       lastName: [
         this.customer.lastName,
         [Validators.maxLength(50), Validators.required],
@@ -76,6 +73,7 @@ export class UpdateCustomerComponent implements OnInit {
         .subscribe((data) => {
           this.customer = data;
           this.createFormUpdateCustomer();
+        
         });
     }
   }
@@ -124,7 +122,6 @@ export class UpdateCustomerComponent implements OnInit {
     }
   }
 
-  
   checkTcNum(id: number) {
     this.customerService.getList().subscribe((response) => {
       let matchCustomer = response.find((item) => {
@@ -164,5 +161,4 @@ export class UpdateCustomerComponent implements OnInit {
       this.updateCustomerForm.get('birthDate')?.setValue('');
     }
   }
-
 }

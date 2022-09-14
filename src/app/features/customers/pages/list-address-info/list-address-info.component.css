@@ -15,7 +15,7 @@
   line-height: 19px;
 }
 .table-body td,
-.table-body tr th{
+.table-body tr th {
   font-family: 'Anybody';
   font-style: normal;
   font-weight: 400;
@@ -27,7 +27,7 @@
 .e-buttons {
   display: flex;
   justify-content: space-between;
-  position: absolute;
+  margin-top: 50px;
   bottom: 5rem;
   width: 100%;
   padding: 0 4rem;
@@ -36,14 +36,14 @@
   margin-left: 20px;
 }
 
-.e-btn-edit{
+.e-btn-edit {
   height: 36px;
   width: 36px;
   float: left;
   border: none;
 }
 
-.e-btn-remove{
+.e-btn-remove {
   height: 36px;
   width: 36px;
   float: left;
@@ -51,7 +51,7 @@
   border: none;
 }
 
-::ng-deep .e-btn-clear:disabled{
+::ng-deep .e-btn-clear:disabled {
   box-sizing: border-box;
 
   width: 118px;
@@ -64,22 +64,21 @@
   line-height: 21px;
 
   background: rgba(245, 130, 32, 0.3);
-  border: 1px solid #F58220;
-  box-shadow: 4px 6px 2px rgba(0, 0, 0, 0.25), inset -1px 1px 2px 2px rgba(0, 0, 0, 0.25);
+  border: 1px solid #f58220;
+  box-shadow: 4px 6px 2px rgba(0, 0, 0, 0.25),
+    inset -1px 1px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
 }
-::ng-deep .p-dialog{
+::ng-deep .p-dialog {
   background-color: #2a5183 !important;
-
 }
 
-:host ::ng-deep .p-dialog .p-dialog-content{
+:host ::ng-deep .p-dialog .p-dialog-content {
   color: #2a5183;
   font-weight: 700;
   font-family: 'Anybody';
-
 }
-.header{
-  color:#f58220;
+.header {
+  color: #f58220;
   font-weight: 900;
 }

@@ -12,7 +12,7 @@ export class CustomerInfoComponent implements OnInit {
   selectedCustomerId!: number;
   customer!: Customer;
 
-  displayBasic!:boolean
+  displayBasic!: boolean;
 
   customerToDelete!: Customer;
   constructor(
@@ -24,6 +24,7 @@ export class CustomerInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCustomerById();
+
     this.checkIsActiveStatus();
   }
 
@@ -67,9 +68,10 @@ export class CustomerInfoComponent implements OnInit {
   }
 
   getCustomerId(customer: Customer) {
-    this.router.navigateByUrl(
-      `/dashboard/customers/update-customer/${customer.id}`
-    );
+    this.router.navigateByUrl(`/update-customer/${customer.id}`);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1);
   }
   removeCustomerPopup(customer: Customer) {
     this.customerToDelete = customer;
