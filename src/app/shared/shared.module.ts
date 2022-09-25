@@ -39,6 +39,7 @@ import { ValidationDialogPopupComponent } from './components/validation-dialog-p
 import {DialogModule} from 'primeng/dialog';
 import { OfferPopupComponent } from './components/offer-popup/offer-popup/offer-popup.component';
 import { OfferDetailPopUpComponent } from './components/offer-detail-pop-up/offer-detail-pop-up/offer-detail-pop-up.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,11 @@ import { OfferDetailPopUpComponent } from './components/offer-detail-pop-up/offe
     ReactiveFormsModule,
     RouterModule,
     StoreModule.forRoot(sharedReducers),
-    DialogModule
+    DialogModule,
+    NgxMaskModule.forRoot({
+      showMaskTyped: true,
+      // clearIfNotMatch : true
+    }),
   ],
   exports: [
     OverlayTitleComponent,
@@ -113,5 +118,6 @@ import { OfferDetailPopUpComponent } from './components/offer-detail-pop-up/offe
     OfferDetailPopUpComponent,
   ],
   providers: [MessageService],
+  
 })
 export class SharedModule {}

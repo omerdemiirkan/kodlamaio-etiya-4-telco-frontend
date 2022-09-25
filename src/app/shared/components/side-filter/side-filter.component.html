@@ -53,22 +53,16 @@
         type="text"
         etiyaInput="dark"
         formControlName="gsmNumber"
-
-        maxlength="10"
         #gsmNumber
-       
-        (ngModelChange)="onChange($event, gsmNumber)"
-        max="9999999999"
-        min="1000000000"
-        (keypress)="isNumber($event)"
-        onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "
+        prefix="+90"
+        mask="000 000 00 00"
+        [showMaskTyped]="true"
       />
 
       <label class="e-label">FIRST NAME</label>
       <input
         type="text"
         etiyaInput="dark"
-        
         formControlName="firstName"
         minlength="2"
         maxlength="100"
@@ -91,7 +85,6 @@
         etiyaInput="dark"
         formControlName="orderNumber"
         (keypress)="isNumber($event)"
-        
         #orderNumber
         onKeyPress="if(this.value.length==10) return false;"
         onkeydown="return event.keyCode !== 17 &&  event.keyCode !== 86 "

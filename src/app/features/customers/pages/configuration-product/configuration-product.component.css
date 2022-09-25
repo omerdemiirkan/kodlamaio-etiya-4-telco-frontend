@@ -104,3 +104,13 @@ small {
 .scroll-product::-webkit-scrollbar-thumb:hover {
   background: #f58220;
 }
+
+.e-table {
+  width: 100% !important;
+}
+
+.row {
+  display: flex;
+  color: #fff;
+  text-align: center;
+}

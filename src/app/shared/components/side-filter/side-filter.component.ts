@@ -14,6 +14,7 @@ export class SideFilterComponent implements OnInit {
 
   public fixedNumber!: string;
 
+
   constructor(
     private formBuilder: FormBuilder,
     private customersService: CustomersService
@@ -28,7 +29,7 @@ export class SideFilterComponent implements OnInit {
       nationalityId: [''],
       customerId: [''],
       accountNumber: [''],
-      gsmNumber: ['5'],
+      gsmNumber: [null,],
       firstName: [''],
       lastName: [''],
       orderNumber: [''],

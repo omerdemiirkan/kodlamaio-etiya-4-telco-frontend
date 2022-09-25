@@ -33,5 +33,6 @@ import { OrdersModule } from './features/orders/orders.module';
   ],
   providers: [],
   bootstrap: [AppComponent],
+
 })
 export class AppModule {}

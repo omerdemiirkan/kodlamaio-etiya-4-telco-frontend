@@ -54,7 +54,7 @@ import { CustomerBillingAccountUpdateComponent } from './pages/customer-billing-
     FormsModule,
     CityModule,
     DialogModule,
-    ButtonModule
+    ButtonModule,
 
   ],
 })
