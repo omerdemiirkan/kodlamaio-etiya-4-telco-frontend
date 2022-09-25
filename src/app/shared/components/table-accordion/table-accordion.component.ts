@@ -35,7 +35,6 @@ export class TableAccordionComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
- 
   ngOnInit(): void {
     this.getCustomerById();
     this.messageService.messageObserver.subscribe((data: any) => {
@@ -66,7 +65,7 @@ export class TableAccordionComponent implements OnInit {
             c.offers?.map((offer) => {
               offer.products.length > 0;
             })
-          ) ||
+          ) &&
           this.billingAccountToDelete.orders.length > 0
         ) {
           this.messageService.add({
@@ -81,6 +80,7 @@ export class TableAccordionComponent implements OnInit {
           this.billingAccountToDelete.orders.length == 0
         ) {
           this.remove();
+
           this.messageService.add({
             key: 'offer',
             severity: 'warn',
@@ -93,7 +93,6 @@ export class TableAccordionComponent implements OnInit {
     });
   }
 
-  
   productDetail(billingAccount: BillingAccount, offer: Offer) {
     if (offer.type.typeName == 'campaign') {
       let campaignProdOfferId = offer.id.toString();
@@ -107,7 +106,7 @@ export class TableAccordionComponent implements OnInit {
         key: 'product-detail',
         sticky: true,
         severity: 'warn',
-        detail:`
+        detail: `
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -130,7 +129,7 @@ export class TableAccordionComponent implements OnInit {
         </div>
       `,
       });
-    }else if (offer.type.typeName == 'catalog') {
+    } else if (offer.type.typeName == 'catalog') {
       let catalogProdOfferId = offer.id;
       let catalogProdOfferName = offer.name;
       let catalogAddressDetail: any = [];
@@ -175,7 +174,7 @@ export class TableAccordionComponent implements OnInit {
           this.customer = data;
           this.cd.detectChanges();
         });
-       this.getProductList();
+      this.getProductList();
     }
   }
 
